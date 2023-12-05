@@ -1,0 +1,21 @@
+.ignore
+CodeGlance Pro
+Grep Console
+
+---- ideavim ----
+IdeaVim
+IdeaVim-EasyMotion
+IdeaVimExtension
+Which-Key
+-----------------
+
+Ideolog
+Key Promoter X  --> disable
+MadJenv
+Maven Helper
+MyBatisX
+Nord
+One Dark theme
+Rainbow Brackets
+String Manipulation  --> disable
+Translation
