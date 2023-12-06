@@ -149,7 +149,7 @@ export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
 
 ### fnm [node version manager]
-export PATH="/home/hua/.local/share/fnm:$PATH"
+export PATH="$HOME/.local/share/fnm:$PATH"
 # zi ice wait lucid id-as"fnm_init" atinit"!eval '$(fnm env)'"
 zi ice id-as"fnm_init" atinit"!eval '$(fnm env)'"
 zi light zdharma-continuum/null
@@ -160,7 +160,7 @@ export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 ### set fvm global flutter sdk
-export PATH=/home/hua/fvm/default/bin:$PATH
+export PATH=$HOME/fvm/default/bin:$PATH
 
 ### jetbrains ideas active script
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
@@ -171,7 +171,7 @@ export ANDROID_AVD_HOME=$HOME/android/avd
 export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
 
 ### add spicetify(custom spotify theme) command
-export PATH=$PATH:/home/hua/.spicetify
+export PATH=$HOME/.spicetify:$PATH
 
 
 ### ========== alias ==========
@@ -180,5 +180,5 @@ export PATH=$PATH:/home/hua/.spicetify
 alias changeGTK4Theme="python ${HOME}/.change_gtk4_theme.py"
 alias changeBrightness="xrandr --output eDP --brightness 0.9 && xrandr --output HDMI-1-0 --brightness 0.9"
 alias sourcezsh="source $HOME/.zshrc"
-alias ls="exa"
-alias ll="exa -l"
+alias ls="eza --icons=always"
+alias ll="eza -l --icons=always"
