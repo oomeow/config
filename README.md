@@ -1,2 +1,2 @@
 # config
-My config for zsh, intellij-idea, kitty, astornvim
+My Linux config for zsh, intellij-idea, kitty, astornvim
