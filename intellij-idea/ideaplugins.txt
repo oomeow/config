@@ -1,7 +1,3 @@
-.ignore
-CodeGlance Pro
-Grep Console
-
 ---- ideavim ----
 IdeaVim
 IdeaVim-EasyMotion
@@ -9,13 +5,16 @@ IdeaVimExtension
 Which-Key
 -----------------
 
+One Dark theme
+Atom Material Icons
+.ignore
+CodeGlance Pro
 Ideolog
-Key Promoter X  --> disable
-MadJenv
+Grep Console
+jEnv Helper
 Maven Helper
 MyBatisX
-Nord
-One Dark theme
 Rainbow Brackets
-String Manipulation  --> disable
 Translation
+Grazie Pro
+Github Workflow
