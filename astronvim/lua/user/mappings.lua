@@ -37,6 +37,8 @@ return {
     ["<leader>E"] = { "<cmd>Neotree toggle buffers<cr>", desc = "Toggle Buffers Explorer" },
     -- select all
     ["<C-a>"] = { "ggVG" },
+    -- redo
+    ["U"] = { "<C-r>" },
   },
   t = {
     -- setting a mapping to false will disable it

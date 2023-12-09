@@ -16,11 +16,6 @@ return {
         "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
         "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
         "    ██   ████   ████   ██ ██      ██",
-        -- "",
-        -- "",
-        -- '  "Me diz algo mais motivador do que',
-        -- '           não ter saída"',
-        -- "",
       }
       return opts
     end,
