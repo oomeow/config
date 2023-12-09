@@ -180,5 +180,8 @@ export PATH=$HOME/.spicetify:$PATH
 alias changeGTK4Theme="python ${HOME}/.change_gtk4_theme.py"
 alias changeBrightness="xrandr --output eDP --brightness 0.9 && xrandr --output HDMI-1-0 --brightness 0.9"
 alias sourcezsh="source $HOME/.zshrc"
+alias zshrc="nvim $HOME/.zshrc"
 alias ls="eza --icons=always"
 alias ll="eza -l --icons=always"
+alias snvim="sudo -E nvim"
+alias cleanOS="sudo apt-get remove --purge `deborphan`"
