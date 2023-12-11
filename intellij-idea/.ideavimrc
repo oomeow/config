@@ -147,13 +147,13 @@ nmap <leader>\\ <Action>(SplitVertically)
 let g:WhichKeyDesc_CodeAndClose = "<leader>c CodeAndClose"
 " 关闭所有标签页
 let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca CloseAllEditors"
-nmap <leader>ca <Action>(CloseAllEditors)
+nmap <leader>C <Action>(CloseAllEditors)
 " 关闭当前标签页
 let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>ce CloseEditor"
-nmap <leader>ce <Action>(CloseEditor)
-" 代码自动补全
-let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc CodeCompletion"
-nmap <leader>cc <Action>(CodeCompletion)
+nmap <leader>c <Action>(CloseEditor)
+" 代码自动补全 (使用IDEA的 Ctrl + space 即可)
+"let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc CodeCompletion"
+"nmap <leader>cc <Action>(CodeCompletion)
 
 "========== d ==========
 let g:WhichKeyDesc_DeBugOrDelete= "<leader>d DebugOrDelete"
