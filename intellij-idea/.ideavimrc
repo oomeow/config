@@ -32,10 +32,10 @@ set clipboard+=unnamed
 "nmap <S-Enter> O<Esc>
 
 " 复制粘贴
-map <C-c> y
-map <C-S-V> p
-nmap <C-v> p
-vmap <C-v> p
+map <C-c> "+y
+map <C-S-V> "+p
+"nmap <C-v> p
+vmap <C-v> "+p
 imap <C-v> <C-r>+
 " 重新执行一次
 nmap U <C-r>
@@ -263,17 +263,17 @@ nmap <leader>nf <Action>(NewFile)
 "========== o ==========
 "========== p ==========
 " 从剪切板粘贴到下面行
-let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
-nmap <leader>p "+p
+"let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
+"nmap <leader>p "+p
 " 从剪切板粘贴到上面行
-let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
-nmap <leader>P "+P
+"let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
+"nmap <leader>P "+P
 " 在可视模式中：从剪切板粘贴到下面行
-let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
-vmap <leader>p "+p
+"let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
+"vmap <leader>p "+p
 " 在可视模式中：从剪切板粘贴到上面行
-let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
-vmap <leader>P "+P
+"let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
+"vmap <leader>P "+P
 
 "========== q ==========
 " 退出
@@ -315,15 +315,15 @@ nmap <leader>T <Action>($ShowTranslationDialogAction)
 "========== w ==========
 "========== x ==========
 "========== y ==========
-let g:WhichKeyDesc_CopyClipboard = "<leader>y CopyClipboard"
+"let g:WhichKeyDesc_CopyClipboard = "<leader>y CopyClipboard"
 " 将 "+ 简化为 <leader>
-vmap <leader>y "+y
+"vmap <leader>y "+y
 "" 将 "+ 简化为 <leader>
 "let g:WhichKeyDesc_CopyClipboard= "<leader>y CopyClipboard"
-nmap <leader>y "+yy
+"nmap <leader>y "+yy
 " 复制整个文件内容
-let g:WhichKeyDesc_CopyAllFileContent = "<leader>y CopyAllFileContent"
-map <leader>y mmggVGy`m
+"let g:WhichKeyDesc_CopyAllFileContent = "<leader>y CopyAllFileContent"
+"map <leader>y mmggVGy`m
 
 "========== z ==========
 let g:WhichKeyDesc_Zip = "<leader>z Zip"
@@ -349,7 +349,7 @@ nmap <leader>nn :NERDTreeFocus<CR>
 " 按下 <C-t> 将切换 NERDTree 文件资源管理器的显示状态，即打开或关闭 NERDTree
 nmap <C-t> :NERDTreeToggle<CR>
 " 按下 <C-f> 将在 NERDTree 文件资源管理器中定位当前编辑文件所在的节点，并使其可见
-nmap <C-f> :NERDTreeFind<CR>
+nmap <leader>o :NERDTreeFind<CR>
 
 " multiple-cursors 
 " remap multiple-cursors shortcuts
