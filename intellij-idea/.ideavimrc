@@ -193,8 +193,8 @@ nmap <leader>ff <Action>(GotoFile)
 let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
 nmap <leader>fl <Action>(SelectInProjectView)
 " 在整个项目中查找指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等 Ctrl + Shift + F
-let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft FindText"
-nmap <leader>ft <Action>(FindInPath)
+let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>fw FindText"
+nmap <leader>fw <Action>(FindInPath)
 " 在整个项目中查找并替换指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等
 let g:WhichKeyDesc_FindOrFormat_FindAndReplaceText = "<leader>fr FindAndReplaceText"
 nmap <leader>fr <Action>(ReplaceInPath)
@@ -210,16 +210,19 @@ let g:WhichKeyDesc_FindOrFormat_OpenRecentlyProject = "<leader>fs OpenRecentlyPr
 nmap <leader>fs <Action>($LRU)
 
 "========== g ==========
-let g:WhichKeyDesc_GitOrGenerate = "<leader>g GitOrGenerate"
+let g:WhichKeyDesc_GitOrGenerate = "<leader>g Git"
 " 版本控制: rollback 回滚操作，将修改的代码还原到之前的版本
 let g:WhichKeyDesc_GitOrGenerate_RollbackHunk = "<leader>gr RollbackHunk"
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
 " 版本控制: diff 显示文件的版本控制历史
 let g:WhichKeyDesc_DebugOrDelete_ShowTabbedFileHistory = "<leader>gh ShowTabbedFileHistory"
 nmap <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
-" generator提示操作 
-let g:WhichKeyDesc_DebugOrDelete_ShowGenerate = "<leader>gt ShowGenerate"
-nmap <leader>gt <Action>(Generate)
+" git merge
+let g:WhichKeyDesc_DebugOrDelete_GitMerge = "<leader>gm GitMerge"
+nmap <leader>gm <Action>(Git.Merge)
+" generator提示操作
+"let g:WhichKeyDesc_DebugOrDelete_ShowGenerate = "<leader>gt ShowGenerate"
+"nmap <leader>gt <Action>(Generate)
 
 "========== h ==========
 " 隐藏所有编辑器之外的窗口
