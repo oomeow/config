@@ -66,7 +66,7 @@ imap jk <Esc>
 " 全文规范化：Ctrl+Alt+l --> Don't use Ex mode, use Q for formatting.
 map Q gq
 " 在源代码和测试代码之间快速切换
-nmap gt <Action>(GotoTest)
+nmap gt <Action>(Generate)
 " 查找当前 VCS 上/下一个改变之处
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)

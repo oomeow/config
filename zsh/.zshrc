@@ -2,6 +2,7 @@
 # 1、zmodload zsh/zprof
 # 2、zinit ice atinit'zmodload zsh/zprof' \
     # atload'zprof | head -n 20; zmodload -u zsh/zprof'
+# zmodload zsh/zprof
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -72,7 +73,7 @@ zi light-mode wait'0a' lucid for \
     OMZP::z \
     as"completion" \
     OMZP::docker/completions/_docker \
-    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7890"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
+    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
     OMZP::shell-proxy
 
 ### completion enhancements
@@ -185,3 +186,5 @@ alias ls="eza --icons=always"
 alias ll="eza -l --icons=always"
 alias snvim="sudo -E nvim"
 alias cleanOS="sudo apt-get remove --purge `deborphan`"
+
+# zprof
