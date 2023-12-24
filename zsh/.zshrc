@@ -101,14 +101,6 @@ zinit ice id-as"brew_completion" \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
 zi light zdharma-continuum/null
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# if type brew &>/dev/null
-# then
-#     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-#
-#     autoload -Uz compinit
-#     compinit
-# fi
 
 ### conda - init and completion
 zsh-defer zinit light commiyou/conda-init-zsh-plugin
@@ -129,7 +121,7 @@ zstyle ':fzf-tab:*' switch-group '[' ']'
 zstyle ':fzf-tab:*' fzf-pad 4
 zstyle ':fzf-tab:*' fzf-min-height 8
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -137,46 +129,37 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 
 ### ========== export env ==========
-
 ### jenv [java version manager]
 export PATH="$HOME/.jenv/bin:$PATH"
 # zi ice wait lucid id-as"jenv_init" atinit"!eval '$(jenv init -)'"
 zi ice id-as"jenv_init" atinit"!eval '$(jenv init -)'"
 zi light zdharma-continuum/null
 # eval "$(jenv init -)"
-
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
-
 ### fnm [node version manager]
 export PATH="$HOME/.local/share/fnm:$PATH"
 # zi ice wait lucid id-as"fnm_init" atinit"!eval '$(fnm env)'"
 zi ice id-as"fnm_init" atinit"!eval '$(fnm env)'"
 zi light zdharma-continuum/null
 # eval "$(`fnm env`)"
-
 ### flutter mirrors
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-
 ### set fvm global flutter sdk
 export PATH=$HOME/fvm/default/bin:$PATH
-
 ### jetbrains ideas active script
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
-
 ### android sdk
 export ANDROID_HOME=$HOME/android/sdk
 export ANDROID_AVD_HOME=$HOME/android/avd
 export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
-
 ### add spicetify(custom spotify theme) command
 export PATH=$HOME/.spicetify:$PATH
 
 
 ### ========== alias ==========
-
 ### change gtk4 theme script
 alias changeGTK4Theme="python ${HOME}/.change_gtk4_theme.py"
 alias changeBrightness="xrandr --output eDP --brightness 0.9 && xrandr --output HDMI-1-0 --brightness 0.9"
