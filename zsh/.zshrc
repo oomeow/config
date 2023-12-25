@@ -1,6 +1,6 @@
 ### analyze zsh starting, two methods
 # 1、zmodload zsh/zprof
-# 2、zinit ice atinit'zmodload zsh/zprof' \
+# 2、zi ice atinit'zmodload zsh/zprof' \
     # atload'zprof | head -n 20; zmodload -u zsh/zprof'
 # zmodload zsh/zprof
 
@@ -26,6 +26,8 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
+zi light romkatv/zsh-defer
+
 ### zinit annexes
 zi light-mode depth"1" for \
     zdharma-continuum/zinit-annex-binary-symlink \
@@ -40,14 +42,11 @@ setopt no_nomatch
 zi ice depth"1"
 zi light romkatv/powerlevel10k
 
-# zsh-defer
-zi light romkatv/zsh-defer
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ### git extras
-zi lucid wait'0a' depth"1" for \
+zi wait'0a' depth"1" lucid light-mode for \
     as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
 
 # ========== oh-my-zsh components ==========
@@ -65,7 +64,7 @@ zi for \
 zi for \
     OMZP::git
 
-zi light-mode wait'0a' lucid for \
+zi wait'0a' lucid light-mode for \
     OMZP::colored-man-pages \
     OMZP::extract \
     OMZP::fancy-ctrl-z \
@@ -73,11 +72,11 @@ zi light-mode wait'0a' lucid for \
     OMZP::z \
     as"completion" \
     OMZP::docker/completions/_docker \
-    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
+    svn depth"1" atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
     OMZP::shell-proxy
 
 ### completion enhancements
-zi light-mode wait lucid depth"1" for \
+zi wait"0a" lucid depth"1" light-mode for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     blockf \
     zdharma-continuum/fast-syntax-highlighting \
@@ -86,64 +85,107 @@ zi light-mode wait lucid depth"1" for \
     zsh-users/zsh-completions \
     zsh-users/zsh-history-substring-search
 
-### zsh-you-should-use
-zi light-mode wait lucid for MichaelAquilina/zsh-you-should-use
+### eza
+zi ice wait"0a" lucid from"gh-r" as"program" pick"./eza"
+zi light eza-community/eza
 
-### LS_COLORS
-# zi ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    #     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    #     atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"'
-# zi light trapd00r/LS_COLORS
+### delta [git branch change file preview]
+zi ice wait"2" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
+zi light dandavison/delta
+
+### zsh-you-should-use
+zi wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
+
+### bat
+zi ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
+zi light @sharkdp/bat
+
+### fzf
+zi ice wait"0a" lucid from"gh-r" as"program" bpick"*amd64*"
+zi light junegunn/fzf
+zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+
+### fd
+zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
+zi light sharkdp/fd
+
+### fzf-tab
+zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
+zi light Aloxaf/fzf-tab
+zstyle ':fzf-tab:*' fzf-pad 4
+# zstyle ':fzf-tab:*' fzf-min-height 8
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview
+export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
+# fzf-tab settings
+# ignore fzf-tab when suggestion less than 4
+zstyle ':fzf-tab:*' ignore 4
+# use group
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:*' switch-group '[' ']'
+# cd preview
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# kill/ps preview
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+    '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+# systemctl preview
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+# env variable preview
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+# git preview
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'|
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+    'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+    'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+esac'
+# man preview
+zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
 ### Homebrew
-zinit ice id-as"brew_completion" \
+zi ice id-as"brew_completion" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
 zi light zdharma-continuum/null
 
 ### conda - init and completion
-zsh-defer zinit light commiyou/conda-init-zsh-plugin
-zi light-mode wait"0a" lucid for conda-incubator/conda-zsh-completion
+zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
+zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
-### fzf
-zi ice wait lucid from"gh-r" nocompile src'key-bindings.zsh' lbin"!fzf" \
-    dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> $ZINIT[COMPLETIONS_DIR]/_fzf_completion;
-https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh -> key-bindings.zsh;
-https://raw.githubusercontent.com/junegunn/fzf/master/man/man1/fzf-tmux.1 -> $ZPFX/man/man1/fzf-tmux.1;
-https://raw.githubusercontent.com/junegunn/fzf/master/man/man1/fzf.1 -> $ZPFX/man/man1/fzf.1'
-zi light junegunn/fzf
-# fzf-tab
-zi ice wait lucid depth"1" atload"zicompinit; zicdreplay" blockf
-zi light Aloxaf/fzf-tab
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':fzf-tab:*' switch-group '[' ']'
-zstyle ':fzf-tab:*' fzf-pad 4
-zstyle ':fzf-tab:*' fzf-min-height 8
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export FZF_DEFAULT_OPTS='--border'
+### neovim
+zi ice wait"1" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" bpick"*linux*" pick"nvim/bin/nvim"
+zi light neovim/neovim
+
+### jenv [java version manager]
+zi ice lucid as"program" pick"bin/jenv" atload'eval "$(jenv init -)"'
+zi light jenv/jenv
+
+### fnm [node version manager]
+zi ice from"gh-r" as"program" bpick"*linux*" lbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
+zi light @Schniz/fnm
+
+### fvm [flutter version manager]
+zi ice from"gh-r" as"program" bpick"*linux*" lbin'fvm/fvm'
+zi light leoafarias/fvm
 
 
 ### ========== export env ==========
-### jenv [java version manager]
-export PATH="$HOME/.jenv/bin:$PATH"
-# zi ice wait lucid id-as"jenv_init" atinit"!eval '$(jenv init -)'"
-zi ice id-as"jenv_init" atinit"!eval '$(jenv init -)'"
-zi light zdharma-continuum/null
-# eval "$(jenv init -)"
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
-### fnm [node version manager]
-export PATH="$HOME/.local/share/fnm:$PATH"
-# zi ice wait lucid id-as"fnm_init" atinit"!eval '$(fnm env)'"
-zi ice id-as"fnm_init" atinit"!eval '$(fnm env)'"
-zi light zdharma-continuum/null
-# eval "$(`fnm env`)"
 ### flutter mirrors
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
