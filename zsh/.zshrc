@@ -26,6 +26,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
+### zsh-defer
 zi light romkatv/zsh-defer
 
 ### zinit annexes
@@ -41,7 +42,6 @@ setopt no_nomatch
 ### powerlevel10k theme
 zi ice depth"1"
 zi light romkatv/powerlevel10k
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -63,7 +63,6 @@ zi for \
 ### plugins
 zi for \
     OMZP::git
-
 zi wait'0a' lucid light-mode for \
     OMZP::colored-man-pages \
     OMZP::extract \
@@ -104,6 +103,7 @@ zi light @sharkdp/bat
 zi ice wait"0a" lucid from"gh-r" as"program" bpick"*amd64*"
 zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
 
 ### fd
 zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
@@ -115,8 +115,6 @@ zi light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-pad 4
 # zstyle ':fzf-tab:*' fzf-min-height 8
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview
-export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
 # fzf-tab settings
 # ignore fzf-tab when suggestion less than 4
 zstyle ':fzf-tab:*' ignore 4
@@ -154,7 +152,7 @@ zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
-### Homebrew
+### homebrew
 zi ice id-as"brew_completion" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
@@ -178,7 +176,8 @@ zi ice from"gh-r" as"program" bpick"*linux*" lbin'fnm' atload'eval "$(fnm env --
 zi light @Schniz/fnm
 
 ### fvm [flutter version manager]
-zi ice from"gh-r" as"program" bpick"*linux*" lbin'fvm/fvm'
+zi ice from"gh-r" as"program" bpick"*linux*" lbin'fvm/fvm' atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
 zi light leoafarias/fvm
 
 
@@ -186,11 +185,6 @@ zi light leoafarias/fvm
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
-### flutter mirrors
-export PUB_HOSTED_URL=https://pub.flutter-io.cn
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-### set fvm global flutter sdk
-export PATH=$HOME/fvm/default/bin:$PATH
 ### jetbrains ideas active script
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 ### android sdk
