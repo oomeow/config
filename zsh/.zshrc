@@ -178,8 +178,10 @@ zi light neovim/neovim
 # zi light neovide/neovide
 
 ### jenv [java version manager]
-zi ice lucid as"program" pick"bin/jenv" atload'eval "$(jenv init -)"'
+zi ice lucid as"program" pick"bin/jenv" # atload'eval "$(jenv init -)"'
 zi light jenv/jenv
+
+zi light shihyuho/zsh-jenv-lazy
 
 ### fnm [node version manager]
 zi ice from"gh-r" as"program" bpick"*linux*" lbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
