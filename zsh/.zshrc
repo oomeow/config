@@ -36,7 +36,7 @@ zi light-mode depth"1" for \
 
 ### zsh option
 setopt promptsubst
-# set zsh nomatch, when use '*' charactor
+# set zsh nomatch for use '*' charactor
 setopt no_nomatch
 
 ### powerlevel10k theme
@@ -105,7 +105,7 @@ zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
 export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
 
-# rg
+### rg
 zi ice lucid wait from"gh-r" as"program" mv"ripgrep* -> rg" pick"rg/rg" nocompletions
 zi light BurntSushi/ripgrep
 
