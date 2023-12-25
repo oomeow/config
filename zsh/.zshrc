@@ -105,11 +105,15 @@ zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
 export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
 
+# rg
+zi ice lucid wait from"gh-r" as"program" mv"ripgrep* -> rg" pick"rg/rg" nocompletions
+zi light BurntSushi/ripgrep
+
 ### fd
 zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
 zi light sharkdp/fd
 
-### fzf-tab
+# === fzf-tab ===
 zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zi light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-pad 4
@@ -156,7 +160,8 @@ export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 zi ice id-as"brew_completion" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git";
+zicompinit; zicdreplay'
 zi light zdharma-continuum/null
 
 ### conda - init and completion
@@ -164,7 +169,8 @@ zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
 zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
 ### neovim
-zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" bpick"*linux*" mv"nvim-* -> nvim" pick"nvim/bin/nvim"
+zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" bpick"*linux*" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
+    atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"'
 zi light neovim/neovim
 
 ### neovide
@@ -195,19 +201,25 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 export ANDROID_HOME=$HOME/android/sdk
 export ANDROID_AVD_HOME=$HOME/android/avd
 export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
-### add spicetify(custom spotify theme) command
+### spicetify [custom spotify theme]
 export PATH=$HOME/.spicetify:$PATH
 
 
 ### ========== alias ==========
 ### change gtk4 theme script
 alias changeGTK4Theme="python ${HOME}/.change_gtk4_theme.py"
-alias changeBrightness="xrandr --output eDP --brightness 0.9 && xrandr --output HDMI-1-0 --brightness 0.9"
 alias sourcezsh="source $HOME/.zshrc"
-alias zshrc="nvim $HOME/.zshrc"
 alias ls="eza --icons=always"
 alias ll="eza -l --icons=always"
-alias snvim="sudo -E nvim"
 alias cleanOS="sudo apt-get remove --purge `deborphan`"
+### change brightness
+function change_brightness() {
+    monitors=($(xrandr --query | grep " connected" | cut -d" " -f1))
+    for monitor in $monitors; do
+        # echo "Adjusting brightness for monitor: $monitor"
+        xrandr --output $monitor --brightness 0.9
+    done
+}
+alias changeBrightness=change_brightness
 
 # zprof
