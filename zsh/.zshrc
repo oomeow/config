@@ -32,7 +32,8 @@ zi light romkatv/zsh-defer
 ### zinit annexes
 zi light-mode depth"1" for \
     zdharma-continuum/zinit-annex-binary-symlink \
-    zdharma-continuum/zinit-annex-patch-dl
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-bin-gem-node
 
 ### zsh option
 setopt promptsubst
@@ -59,7 +60,6 @@ zi for \
     OMZL::key-bindings.zsh \
     OMZL::clipboard.zsh \
     OMZL::theme-and-appearance.zsh
-
 ### plugins
 zi for \
     OMZP::git
@@ -71,8 +71,9 @@ zi wait'0a' lucid light-mode for \
     OMZP::z \
     as"completion" \
     OMZP::docker/completions/_docker \
-    svn depth"1" atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
+    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
     OMZP::shell-proxy
+
 
 ### completion enhancements
 zi wait"0a" lucid depth"1" light-mode for \
@@ -100,18 +101,18 @@ zi ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat
 zi light @sharkdp/bat
 
 ### fzf
-zi ice wait"0a" lucid from"gh-r" as"program" bpick"*amd64*"
+zi ice wait"0a" lucid from"gh-r" as"program" bpick"*amd64*" atload'export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob "!.git" || find ."'
 zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
-export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git' || find ."
-
-### rg
-zi ice lucid wait from"gh-r" as"program" mv"ripgrep* -> rg" pick"rg/rg" nocompletions
-zi light BurntSushi/ripgrep
 
 ### fd
-zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
-zi light sharkdp/fd
+# zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
+# zi light sharkdp/fd
+# zi wait"0a" lucid as"completion" for https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
+zi wait"0a" lucid for \
+    from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions @sharkdp/fd \
+    as"completion" pick"completion/_fd" @sharkdp/fd
+
 
 # === fzf-tab ===
 zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
@@ -157,11 +158,10 @@ zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
 ### homebrew
-zi ice id-as"brew_completion" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
+zi ice id-as"brew_completion" as"null" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git";
-zicompinit; zicdreplay'
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
 zi light zdharma-continuum/null
 
 ### conda - init and completion
@@ -169,26 +169,47 @@ zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
 zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
 ### neovim
-zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" bpick"*linux*" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
+zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"'
 zi light neovim/neovim
 
 ### neovide
-# zi ice wait"0b" lucid from"gh-r" as"program" bpick"*linux*" lbin'neovide'
+# zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide'
 # zi light neovide/neovide
 
-### jenv [java version manager]
-zi ice lucid as"program" pick"bin/jenv" # atload'eval "$(jenv init -)"'
-zi light jenv/jenv
+### follow plugin is ready for AstroNvim
+# rg
+zi ice lucid wait from"gh-r" as"program" mv"ripgrep* -> rg" pick"rg/rg" nocompletions
+zi light BurntSushi/ripgrep
+# lazygit
+zi ice wait"0a" lucid from"gh-r" as"program" sbin"lazygit"
+zi light jesseduffield/lazygit
+# gdu [disk usage]
+zi ice wait"0a" lucid from"gh-r" as"program" mv"gdu* -> gdu" pick"gdu"
+zi light dundee/gdu
+# bottom [process viewer]
+zi ice wait"0a" lucid from"gh-r" as"program" sbin"btm" src"completion/_btm"
+zi light ClementTsang/bottom
 
-zi light shihyuho/zsh-jenv-lazy
+### jenv [java version manager]
+# atload'eval "$(jenv init -)"'
+zi ice lucid as"program" pick"bin/jenv" src"completions/jenv.zsh"
+zi light jenv/jenv
+zi light JokingAboutLife/zsh-jenv-lazy
+
+### sdkman
+# zinit ice as"program" pick"$ZPFX/sdkman/bin/sdk" id-as'sdkman' run-atpull \
+    #     atclone"wget https://get.sdkman.io/ -O scr.sh; SDKMAN_DIR=$ZPFX/sdkman bash scr.sh" \
+    #     atpull"SDKMAN_DIR=$ZPFX/sdkman sdk selfupdate" \
+    #     atinit"export SDKMAN_DIR=$ZPFX/sdkman; source $ZPFX/sdkman/bin/sdkman-init.sh"
+# zinit light zdharma-continuum/null
 
 ### fnm [node version manager]
-zi ice from"gh-r" as"program" bpick"*linux*" lbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
+zi ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 zi light @Schniz/fnm
 
 ### fvm [flutter version manager]
-zi ice from"gh-r" as"program" bpick"*linux*" lbin'fvm/fvm' atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
+zi ice from"gh-r" as"program" sbin'fvm/fvm' atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
 zi light leoafarias/fvm
 
@@ -218,7 +239,6 @@ alias cleanOS="sudo apt-get remove --purge `deborphan`"
 function change_brightness() {
     monitors=($(xrandr --query | grep " connected" | cut -d" " -f1))
     for monitor in $monitors; do
-        # echo "Adjusting brightness for monitor: $monitor"
         xrandr --output $monitor --brightness 0.9
     done
 }
