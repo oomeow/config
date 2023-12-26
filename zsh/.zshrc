@@ -106,15 +106,11 @@ zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
 
 ### fd
-# zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
-# zi light sharkdp/fd
-# zi wait"0a" lucid as"completion" for https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
-zi wait"0a" lucid for \
-    from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions @sharkdp/fd \
-    as"completion" pick"completion/_fd" @sharkdp/fd
+zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
+zi light sharkdp/fd
+zi wait"0a" lucid as"completion" for https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
 
-
-# === fzf-tab ===
+### fzf-tab
 zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zi light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-pad 4
