@@ -86,7 +86,7 @@ zi wait"0a" lucid depth"1" light-mode for \
     zsh-users/zsh-history-substring-search
 
 ### eza
-zi ice wait"0a" lucid from"gh-r" as"program" pick"./eza"
+zi ice wait"0a" lucid from"gh-r" as"program" pick"eza"
 zi light eza-community/eza
 
 ### delta [git branch change file preview]
@@ -101,9 +101,10 @@ zi ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat
 zi light @sharkdp/bat
 
 ### fzf
-zi ice wait"0a" lucid from"gh-r" as"program" bpick"*amd64*" atload'export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob "!.git" || find ."'
+zi ice wait"0a" lucid from"gh-r" as"program" pick"fzf"
 zi light junegunn/fzf
 zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'"
 
 ### fd
 zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
@@ -191,7 +192,7 @@ zi light ClementTsang/bottom
 # atload'eval "$(jenv init -)"'
 zi ice lucid as"program" pick"bin/jenv" src"completions/jenv.zsh"
 zi light jenv/jenv
-zi light JokingAboutLife/zsh-jenv-lazy
+zi light shihyuho/zsh-jenv-lazy
 
 ### sdkman
 # zinit ice as"program" pick"$ZPFX/sdkman/bin/sdk" id-as'sdkman' run-atpull \
