@@ -46,10 +46,6 @@ zi light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-### git extras
-zi wait'0a' depth"1" lucid light-mode for \
-    as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
-
 # ========== oh-my-zsh components ==========
 ### libraries
 zi for \
@@ -74,7 +70,6 @@ zi wait'0a' lucid light-mode for \
     svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
     OMZP::shell-proxy
 
-
 ### completion enhancements
 zi wait"0a" lucid depth"1" light-mode for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -85,31 +80,35 @@ zi wait"0a" lucid depth"1" light-mode for \
     zsh-users/zsh-completions \
     zsh-users/zsh-history-substring-search
 
+### git extras
+zi wait'0a' depth"1" lucid light-mode for \
+    as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
+
 ### eza
-zi ice wait"0a" lucid from"gh-r" as"program" pick"eza"
+zi ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
 zi light eza-community/eza
 
 ### delta [git branch change file preview]
-zi ice wait"2" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
+zi ice wait"0a" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
 zi light dandavison/delta
 
 ### zsh-you-should-use
 zi wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
 
-### bat
+### bat [replace cat command]
 zi ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
 zi light @sharkdp/bat
 
 ### fzf
-zi ice wait"0a" lucid from"gh-r" as"program" pick"fzf"
-zi light junegunn/fzf
-zi wait"0b" lucid for https://github.com/junegunn/fzf/raw/master/shell/{'completion','key-bindings'}.zsh
+zi wait"0a" lucid pack"bgn-binary+keys" for fzf
 export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'"
+export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
 ### fd
-zi ice wait"0a" lucid from"gh-r" as"program" mv"fd* -> fd" pick"fd/fd" nocompletions
-zi light sharkdp/fd
-zi wait"0a" lucid as"completion" for https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd
+zi wait"0a" lucid \
+    dl'https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd' \
+    from"gh-r" id-as"@sharkdp/fd" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" nocompile \
+    for @sharkdp/fd
 
 ### fzf-tab
 zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
@@ -152,7 +151,6 @@ esac'
 # man preview
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
 ### homebrew
 zi ice id-as"brew_completion" as"null" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
@@ -174,25 +172,18 @@ zi light neovim/neovim
 # zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide'
 # zi light neovide/neovide
 
-### follow plugin is ready for AstroNvim
-# rg
-zi ice lucid wait from"gh-r" as"program" mv"ripgrep* -> rg" pick"rg/rg" nocompletions
-zi light BurntSushi/ripgrep
-# lazygit
-zi ice wait"0a" lucid from"gh-r" as"program" sbin"lazygit"
-zi light jesseduffield/lazygit
-# gdu [disk usage]
-zi ice wait"0a" lucid from"gh-r" as"program" mv"gdu* -> gdu" pick"gdu"
-zi light dundee/gdu
-# bottom [process viewer]
-zi ice wait"0a" lucid from"gh-r" as"program" sbin"btm" src"completion/_btm"
-zi light ClementTsang/bottom
+### follow plugins are ready for AstroNvim
+# rg / lazygit / gdu [disk usage] / bottom [process viewer]
+zi wait"0a" lucid from"gh-r" as"program" for \
+    mv"ripgrep* -> rg" pick"rg/rg" nocompletions BurntSushi/ripgrep \
+    sbin"lazygit" jesseduffield/lazygit \
+    mv"gdu* -> gdu" pick"gdu" dundee/gdu \
+    sbin"btm" src"completion/_btm" ClementTsang/bottom
 
 ### jenv [java version manager]
-# atload'eval "$(jenv init -)"'
-zi ice lucid as"program" pick"bin/jenv" src"completions/jenv.zsh"
-zi light jenv/jenv
-zi light shihyuho/zsh-jenv-lazy
+zi light-mode lucid for \
+    as"program" pick"bin/jenv" src"completions/jenv.zsh" jenv/jenv \
+    @shihyuho/zsh-jenv-lazy
 
 ### sdkman
 # zinit ice as"program" pick"$ZPFX/sdkman/bin/sdk" id-as'sdkman' run-atpull \
@@ -204,6 +195,8 @@ zi light shihyuho/zsh-jenv-lazy
 ### fnm [node version manager]
 zi ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 zi light @Schniz/fnm
+zi ice id-as"fnm_completion" as"null" has'fnm' atclone'fnm completions --shell zsh > _fnm' src'_fnm' nocompile
+zi light zdharma-continuum/null
 
 ### fvm [flutter version manager]
 zi ice from"gh-r" as"program" sbin'fvm/fvm' atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
@@ -227,18 +220,21 @@ export PATH=$HOME/.spicetify:$PATH
 
 ### ========== alias ==========
 ### change gtk4 theme script
-alias changeGTK4Theme="python ${HOME}/.change_gtk4_theme.py"
+alias change-theme="python ${HOME}/.change_gtk4_theme.py"
 alias sourcezsh="source $HOME/.zshrc"
-alias ls="eza --icons=always"
-alias ll="eza -l --icons=always"
 alias cleanOS="sudo apt-get remove --purge `deborphan`"
+
+### ========== function ==========
 ### change brightness
-function change_brightness() {
-    monitors=($(xrandr --query | grep " connected" | cut -d" " -f1))
+function change-brightness() {
+    local light=0.9
+    if [ "$#" -eq 1 ]; then
+        local light="$1"
+    fi
+    local monitors=($(xrandr --query | grep " connected" | cut -d" " -f1))
     for monitor in $monitors; do
-        xrandr --output $monitor --brightness 0.9
+        xrandr --output $monitor --brightness $light
     done
 }
-alias changeBrightness=change_brightness
 
 # zprof
