@@ -2,8 +2,9 @@
 # 1、zmodload zsh/zprof
 # 2、zi ice atinit'zmodload zsh/zprof' \
     # atload'zprof | head -n 20; zmodload -u zsh/zprof'
-# zmodload zsh/zprof
 
+
+# zmodload zsh/zprof
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -67,7 +68,9 @@ zi wait'0a' lucid light-mode for \
     OMZP::z \
     as"completion" \
     OMZP::docker/completions/_docker \
-    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897"; export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
+    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
+export SHELLPROXY_NO_PROXY="localhost,127.0.0.1";
+proxy enable' \
     OMZP::shell-proxy
 
 ### completion enhancements
@@ -111,7 +114,7 @@ zi wait"0a" lucid \
     for @sharkdp/fd
 
 ### fzf-tab
-zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
+zi ice wait"0a" lucid depth"1" has"fzf" atload"zicompinit; zicdreplay" blockf
 zi light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-pad 4
 # zstyle ':fzf-tab:*' fzf-min-height 8
@@ -173,7 +176,7 @@ zi light neovim/neovim
 # zi light neovide/neovide
 
 ### follow plugins are ready for AstroNvim
-# rg / lazygit / gdu [disk usage] / bottom [process viewer]
+# ripgrep / lazygit / gdu [disk usage] / bottom [process viewer]
 zi wait"0a" lucid from"gh-r" as"program" for \
     mv"ripgrep* -> rg" pick"rg/rg" nocompletions BurntSushi/ripgrep \
     sbin"lazygit" jesseduffield/lazygit \
@@ -195,7 +198,7 @@ zi light-mode lucid for \
 ### fnm [node version manager]
 zi ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 zi light @Schniz/fnm
-zi ice id-as"fnm_completion" as"null" has'fnm' atclone'fnm completions --shell zsh > _fnm' src'_fnm' nocompile
+zi ice id-as"fnm_completion" as"null" has'fnm' atclone'fnm completions --shell zsh > _fnm' src'_fnm'
 zi light zdharma-continuum/null
 
 ### fvm [flutter version manager]
@@ -222,7 +225,9 @@ export PATH=$HOME/.spicetify:$PATH
 ### change gtk4 theme script
 alias change-theme="python ${HOME}/.change_gtk4_theme.py"
 alias sourcezsh="source $HOME/.zshrc"
-alias cleanOS="sudo apt-get remove --purge `deborphan`"
+if type deborphan > /dev/null 2>&1; then
+    alias cleanOS="sudo apt-get remove --purge `deborphan`"
+fi
 
 ### ========== function ==========
 ### change brightness
