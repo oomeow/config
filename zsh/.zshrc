@@ -156,7 +156,7 @@ zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
 ### homebrew
-zi ice id-as"brew_completion" as"null" if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' \
+zi ice if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' id-as"brew_completion" as"null" \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
@@ -170,10 +170,18 @@ zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"'
 zi light neovim/neovim
+# TODO change `your_password` to your password
+zi ice wait"1" id-as"root-user-nvim-link" as"null" lucid \
+    atclone'echo "your_password" | sudo -S ln -s $ZINIT[PLUGINS_DIR]/neovim---neovim/nvim/bin/nvim /usr/bin/nvim'
+zi light zdharma-continuum/null
 
 ### neovide
-# zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide'
-# zi light neovide/neovide
+zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
+zi light neovide/neovide
+# TODO change `your_password` to your password
+zi ice wait"1" id-as"root-user-neovide-link" as"null" lucid \
+    atclone'echo "your_password" | sudo -S ln -s $ZINIT[PLUGINS_DIR]/neovide---neovide/neovide /usr/bin/neovide'
+zi light zdharma-continuum/null
 
 ### follow plugins are ready for AstroNvim
 # ripgrep / lazygit / gdu [disk usage] / bottom [process viewer]
