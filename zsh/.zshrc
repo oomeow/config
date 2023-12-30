@@ -173,7 +173,7 @@ zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" pic
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
 zi light neovim/neovim
 # TODO change `your_password` to your password
-zi ice wait"1" has"nvim" id-as"root-user-nvim-link" as"null" lucid \
+zi ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
 zi light zdharma-continuum/null
 
@@ -181,7 +181,7 @@ zi light zdharma-continuum/null
 zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
 zi light neovide/neovide
 # TODO change `your_password` to your password
-zi ice wait"1" id-as"root-user-neovide-link" has"neovide" as"null" lucid \
+zi ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
 zi light zdharma-continuum/null
 
