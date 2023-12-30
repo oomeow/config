@@ -90,8 +90,10 @@ zi wait'0a' depth"1" lucid light-mode for \
 ### eza
 zi ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
 zi light eza-community/eza
+zi ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
+zi light eza-community/eza
 
-### delta [git branch change file preview]
+### delta [git changed file preview]
 zi ice wait"0a" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
 zi light dandavison/delta
 
@@ -104,39 +106,39 @@ zi light @sharkdp/bat
 
 ### fzf
 zi wait"0a" lucid pack"bgn-binary+keys" for fzf
-export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'"
-export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
 
 ### fd
 zi wait"0a" lucid \
-    dl'https://github.com/sharkdp/fd/blob/master/contrib/completion/_fd' \
-    from"gh-r" id-as"@sharkdp/fd" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" nocompile \
+    from"gh-r" id-as"@sharkdp/fd" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" \
     for @sharkdp/fd
 
 ### fzf-tab
-zi ice wait"0a" lucid depth"1" has"fzf" atload"zicompinit; zicdreplay" blockf
+zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zi light Aloxaf/fzf-tab
+
+###############################
+#   fzf-tab preview setting   #
+###############################
 zstyle ':fzf-tab:*' fzf-pad 4
 # zstyle ':fzf-tab:*' fzf-min-height 8
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# fzf-tab settings
 # ignore fzf-tab when suggestion less than 4
 zstyle ':fzf-tab:*' ignore 4
 # use group
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' switch-group '[' ']'
-# cd preview
+# cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# kill/ps preview
+# kill/ps
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
     '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
-# systemctl preview
+# systemctl
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-# env variable preview
+# env variable
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-# git preview
+# git
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'|
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
@@ -151,7 +153,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 esac'
-# man preview
+# man
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
@@ -168,19 +170,19 @@ zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
 ### neovim
 zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
-    atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"'
+    atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
 zi light neovim/neovim
 # TODO change `your_password` to your password
-zi ice wait"1" id-as"root-user-nvim-link" as"null" lucid \
-    atclone'echo "your_password" | sudo -S ln -s $ZINIT[PLUGINS_DIR]/neovim---neovim/nvim/bin/nvim /usr/bin/nvim'
+zi ice wait"1" has"nvim" id-as"root-user-nvim-link" as"null" lucid \
+    atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
 zi light zdharma-continuum/null
 
 ### neovide
 zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
 zi light neovide/neovide
 # TODO change `your_password` to your password
-zi ice wait"1" id-as"root-user-neovide-link" as"null" lucid \
-    atclone'echo "your_password" | sudo -S ln -s $ZINIT[PLUGINS_DIR]/neovide---neovide/neovide /usr/bin/neovide'
+zi ice wait"1" id-as"root-user-neovide-link" has"neovide" as"null" lucid \
+    atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
 zi light zdharma-continuum/null
 
 ### follow plugins are ready for AstroNvim
@@ -206,16 +208,23 @@ zi light-mode lucid for \
 ### fnm [node version manager]
 zi ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 zi light @Schniz/fnm
-zi ice id-as"fnm_completion" as"null" has'fnm' atclone'fnm completions --shell zsh > _fnm' src'_fnm'
+zi ice id-as"fnm_completion" has"fnm" as"completion" \
+    atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
 zi light zdharma-continuum/null
 
 ### fvm [flutter version manager]
-zi ice from"gh-r" as"program" sbin'fvm/fvm' atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
+zi ice from"gh-r" as"program" sbin'fvm/fvm' \
+    atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
 zi light leoafarias/fvm
 
 
 ### ========== export env ==========
+### fzf
+if type fzf > /dev/null 2>&1; then
+    export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'"
+    export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
+fi
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
