@@ -169,7 +169,7 @@ zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
 zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
 ### neovim
-zi ice wait"0a" lucid from"gh-r" ver"nightly" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
+zi ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
 zi light neovim/neovim
 # TODO change `your_password` to your password
