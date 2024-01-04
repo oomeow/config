@@ -1,6 +1,6 @@
 ### analyze zsh starting, two methods
 # 1、zmodload zsh/zprof
-# 2、zi ice atinit'zmodload zsh/zprof' \
+# 2、zinit ice atinit'zmodload zsh/zprof' \
     # atload'zprof | head -n 20; zmodload -u zsh/zprof'
 
 
@@ -28,10 +28,10 @@ autoload -Uz _zinit
 ### End of Zinit's installer chunk
 
 ### zsh-defer
-zi light romkatv/zsh-defer
+zinit light romkatv/zsh-defer
 
 ### zinit annexes
-zi light-mode depth"1" for \
+zinit light-mode depth"1" for \
     zdharma-continuum/zinit-annex-binary-symlink \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-bin-gem-node
@@ -42,14 +42,14 @@ setopt promptsubst
 setopt no_nomatch
 
 ### powerlevel10k theme
-zi ice depth"1"
-zi light romkatv/powerlevel10k
+zinit ice depth"1"
+zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ========== oh-my-zsh components ==========
 ### libraries
-zi for \
+zinit for \
     OMZL::correction.zsh \
     OMZL::completion.zsh \
     OMZL::history.zsh \
@@ -58,14 +58,13 @@ zi for \
     OMZL::clipboard.zsh \
     OMZL::theme-and-appearance.zsh
 ### plugins
-zi for \
+zinit for \
     OMZP::git
-zi wait'0a' lucid light-mode for \
+zinit wait'0a' lucid light-mode for \
     OMZP::colored-man-pages \
     OMZP::extract \
     OMZP::fancy-ctrl-z \
     OMZP::sudo \
-    OMZP::z \
     as"completion" \
     OMZP::docker/completions/_docker \
     svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
@@ -74,7 +73,7 @@ proxy enable' \
     OMZP::shell-proxy
 
 ### completion enhancements
-zi wait"0a" lucid depth"1" light-mode for \
+zinit wait"0a" lucid depth"1" light-mode for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     blockf \
     zdharma-continuum/fast-syntax-highlighting \
@@ -84,37 +83,41 @@ zi wait"0a" lucid depth"1" light-mode for \
     zsh-users/zsh-history-substring-search
 
 ### git extras
-zi wait'0a' depth"1" lucid light-mode for \
+zinit wait'0a' depth"1" lucid light-mode for \
     as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
 
 ### eza
-zi ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
-zi light eza-community/eza
-zi ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
-zi light eza-community/eza
+zinit ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
+zinit light eza-community/eza
+zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
+zinit light eza-community/eza
 
 ### delta [git changed file preview]
-zi ice wait"0a" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
-zi light dandavison/delta
+zinit ice wait"0a" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
+zinit light dandavison/delta
 
 ### zsh-you-should-use
-zi wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
+zinit wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
+
+### zoxide
+zinit ice wait"0a" lucid from"gh-r" as"program" pick"zoxide" src"completions/_zoxide" atload'!eval "$(zoxide init zsh)"'
+zinit light ajeetdsouza/zoxide
 
 ### bat [replace cat command]
-zi ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
-zi light @sharkdp/bat
+zinit ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
+zinit light @sharkdp/bat
 
 ### fzf
-zi wait"0a" lucid pack"bgn-binary+keys" for fzf
+zinit wait"0a" lucid pack"bgn-binary+keys" for fzf
 
 ### fd
-zi wait"0a" lucid \
+zinit wait"0a" lucid \
     from"gh-r" id-as"@sharkdp/fd" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" \
     for @sharkdp/fd
 
 ### fzf-tab
-zi ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
-zi light Aloxaf/fzf-tab
+zinit ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
+zinit light Aloxaf/fzf-tab
 
 ###############################
 #   fzf-tab preview setting   #
@@ -158,43 +161,43 @@ zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
 ### homebrew
-zi ice if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' id-as"brew_completion" as"null" \
+zinit ice if'[[ -d "/home/linuxbrew/.linuxbrew/" ]]' id-as"brew_completion" as"null" \
     atinit'!eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"' \
     atload'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api";
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"; zicompinit; zicdreplay'
-zi light zdharma-continuum/null
+zinit light zdharma-continuum/null
 
 ### conda - init and completion
 zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
-zi wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
+zinit wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
 
 ### neovim
-zi ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
+zinit ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
-zi light neovim/neovim
+zinit light neovim/neovim
 # TODO change `your_password` to your password
-zi ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
+zinit ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
-zi light zdharma-continuum/null
+zinit light zdharma-continuum/null
 
 ### neovide
-zi ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
-zi light neovide/neovide
+zinit ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
+zinit light neovide/neovide
 # TODO change `your_password` to your password
-zi ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
+zinit ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
-zi light zdharma-continuum/null
+zinit light zdharma-continuum/null
 
 ### follow plugins are ready for AstroNvim
 # ripgrep / lazygit / gdu [disk usage] / bottom [process viewer]
-zi wait"0a" lucid from"gh-r" as"program" for \
+zinit wait"0a" lucid from"gh-r" as"program" for \
     mv"ripgrep* -> rg" pick"rg/rg" nocompletions BurntSushi/ripgrep \
     sbin"lazygit" jesseduffield/lazygit \
     mv"gdu* -> gdu" pick"gdu" dundee/gdu \
     sbin"btm" src"completion/_btm" ClementTsang/bottom
 
 ### jenv [java version manager]
-zi light-mode lucid for \
+zinit light-mode lucid for \
     as"program" pick"bin/jenv" src"completions/jenv.zsh" jenv/jenv \
     @shihyuho/zsh-jenv-lazy
 
@@ -206,17 +209,17 @@ zi light-mode lucid for \
 # zinit light zdharma-continuum/null
 
 ### fnm [node version manager]
-zi ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
-zi light @Schniz/fnm
-zi ice id-as"fnm_completion" has"fnm" as"completion" \
+zinit ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
+zinit light @Schniz/fnm
+zinit ice id-as"fnm_completion" has"fnm" as"completion" \
     atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
-zi light zdharma-continuum/null
+zinit light zdharma-continuum/null
 
 ### fvm [flutter version manager]
-zi ice from"gh-r" as"program" sbin'fvm/fvm' \
+zinit ice from"gh-r" as"program" sbin'fvm/fvm' \
     atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
-zi light leoafarias/fvm
+zinit light leoafarias/fvm
 
 
 ### ========== export env ==========
