@@ -100,7 +100,8 @@ zinit light dandavison/delta
 zinit wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
 
 ### zoxide
-zinit ice wait"0a" lucid from"gh-r" as"program" pick"zoxide" src"completions/_zoxide" atload'!eval "$(zoxide init zsh)"'
+zinit ice wait"0a" lucid from"gh-r" as"program" pick"zoxide" src"completions/_zoxide" \
+    atload'!eval "$(zoxide init zsh)"'
 zinit light ajeetdsouza/zoxide
 
 ### bat [replace cat command]
@@ -108,7 +109,11 @@ zinit ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"
 zinit light @sharkdp/bat
 
 ### fzf
-zinit wait"0a" lucid pack"bgn-binary+keys" for fzf
+zinit wait"0a" lucid pack"bgn-binary+keys"  \
+    atinit"!export FZF_CTRL_T_COMMAND=\"fd --type f --hidden --follow --exclude .git ||
+git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'\"; 
+export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" \
+    for fzf
 
 ### fd
 zinit wait"0a" lucid \
@@ -223,11 +228,6 @@ zinit light leoafarias/fvm
 
 
 ### ========== export env ==========
-### fzf
-if type fzf > /dev/null 2>&1; then
-    export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude .git || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'"
-    export FZF_DEFAULT_OPTS='--preview-window=right,50%,border-top'
-fi
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
