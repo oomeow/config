@@ -60,7 +60,7 @@ zinit for \
 ### plugins
 zinit for \
     OMZP::git
-zinit wait'0a' lucid light-mode for \
+zinit wait'0a' lucid for \
     OMZP::colored-man-pages \
     OMZP::extract \
     OMZP::fancy-ctrl-z \
@@ -73,7 +73,7 @@ proxy enable' \
     OMZP::shell-proxy
 
 ### completion enhancements
-zinit wait"0a" lucid depth"1" light-mode for \
+zinit wait"0a" lucid depth"1" for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     blockf \
     zdharma-continuum/fast-syntax-highlighting \
@@ -83,30 +83,30 @@ zinit wait"0a" lucid depth"1" light-mode for \
     zsh-users/zsh-history-substring-search
 
 ### git extras
-zinit wait'0a' depth"1" lucid light-mode for \
+zinit wait'0a' depth"1" lucid for \
     as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
 
 ### eza
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
-zinit light eza-community/eza
+zinit load eza-community/eza
 zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
-zinit light eza-community/eza
+zinit load eza-community/eza
 
 ### delta [git changed file preview]
 zinit ice wait"0a" lucid from"gh-r" as"program" mv"delta* -> delta" pick"delta/delta"
-zinit light dandavison/delta
+zinit load dandavison/delta
 
 ### zsh-you-should-use
-zinit wait"0a" lucid light-mode for MichaelAquilina/zsh-you-should-use
+zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 
 ### zoxide
 zinit ice wait"0a" lucid from"gh-r" as"program" pick"zoxide" src"completions/_zoxide" \
     atload'!eval "$(zoxide init zsh)"'
-zinit light ajeetdsouza/zoxide
+zinit load ajeetdsouza/zoxide
 
 ### bat [replace cat command]
-zinit ice wait"0a" lucid light-mode from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
-zinit light @sharkdp/bat
+zinit ice wait"0a" lucid from'gh-r' as"program" mv"bat* -> bat" pick"bat/bat"
+zinit load @sharkdp/bat
 
 ### fzf
 zinit wait"0a" lucid pack"bgn-binary+keys"  \
@@ -117,12 +117,12 @@ export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" \
 
 ### fd
 zinit wait"0a" lucid \
-    from"gh-r" id-as"@sharkdp/fd" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" \
+    from"gh-r" mv"fd* -> fd" pick"/dev/null" sbin"fd/fd" \
     for @sharkdp/fd
 
 ### fzf-tab
 zinit ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
-zinit light Aloxaf/fzf-tab
+zinit load Aloxaf/fzf-tab
 
 ###############################
 #   fzf-tab preview setting   #
@@ -173,25 +173,25 @@ export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebr
 zinit light zdharma-continuum/null
 
 ### conda - init and completion
-zsh-defer zinit light-mode lucid for commiyou/conda-init-zsh-plugin
-zinit wait"0a" lucid light-mode for conda-incubator/conda-zsh-completion
+zsh-defer zinit lucid for commiyou/conda-init-zsh-plugin
+zinit wait"0a" lucid for conda-incubator/conda-zsh-completion
 
 ### neovim
 zinit ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
-zinit light neovim/neovim
+zinit load neovim/neovim
 # TODO change `your_password` to your password
 zinit ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
-zinit light zdharma-continuum/null
+zinit load zdharma-continuum/null
 
 ### neovide
 zinit ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
-zinit light neovide/neovide
+zinit load neovide/neovide
 # TODO change `your_password` to your password
 zinit ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
-zinit light zdharma-continuum/null
+zinit load zdharma-continuum/null
 
 ### follow plugins are ready for AstroNvim
 # ripgrep / lazygit / gdu [disk usage] / bottom [process viewer]
@@ -202,7 +202,7 @@ zinit wait"0a" lucid from"gh-r" as"program" for \
     sbin"btm" src"completion/_btm" ClementTsang/bottom
 
 ### jenv [java version manager]
-zinit light-mode lucid for \
+zinit lucid for \
     as"program" pick"bin/jenv" src"completions/jenv.zsh" jenv/jenv \
     @shihyuho/zsh-jenv-lazy
 
