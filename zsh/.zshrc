@@ -3,8 +3,16 @@
 # 2、zinit ice atinit'zmodload zsh/zprof' \
     # atload'zprof | head -n 20; zmodload -u zsh/zprof'
 
-
 # zmodload zsh/zprof
+
+
+# =======================================
+# shell proxy [ important!!! ]
+# =======================================
+# alias proxyset="export http_proxy=http://127.0.0.1:7897; export https_proxy=http://127.0.0.1:7897"
+# alias proxyunset="unset http_proxy; unset https_proxy"
+# proxyset
+
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -68,8 +76,7 @@ zinit wait'0a' lucid for \
     as"completion" \
     OMZP::docker/completions/_docker \
     svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
-export SHELLPROXY_NO_PROXY="localhost,127.0.0.1";
-proxy enable' \
+export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
     OMZP::shell-proxy
 
 ### completion enhancements
