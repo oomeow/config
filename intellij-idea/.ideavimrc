@@ -1,10 +1,13 @@
-" plugins
+" ==== plugins ====
 set surround
 set multiple-cursors
 set NERDTree
 set easymotion
 set ReplaceWithRegister
+" ==== plugins ====
 
+" 捕获当前操作的 action id
+set trackactionids
 
 set ideajoin
 " search
@@ -13,16 +16,14 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-" 行号
 set nu
-" 相对行号
 set rnu
+
 " 设置返回normal模式时回到英文输入法
 set keep-english-in-normal
 " 系统剪贴板
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 " set clipboard^=unnamed,unnamedplus
-
 
 " ================================================================================================
 " No Leader Keymaps
@@ -31,23 +32,27 @@ set clipboard+=unnamed
 "nmap <CR> o<Esc>
 "nmap <S-Enter> O<Esc>
 
-" 复制粘贴
-map <C-c> "+y
-map <C-S-V> "+p
+" 复制粘贴 (使用了unnamedplus,无需设置以下的映射)
+"map <C-c> "+y
+"map <C-S-V> "+p
 "nmap <C-v> p
-vmap <C-v> "+p
-imap <C-v> <C-r>+
-" 重新执行一次
+"vmap <C-v> "+p
+"imap <C-v> <C-r>+
+
+" 重新执行一次 redo
 nmap U <C-r>
-" 前进/后退
-nmap <C-o> <Action>(Back)
-nmap <C-i> <Action>(Forward)
+" 前进/后退 (似乎不用配置）
+"nmap <C-o> <Action>(Back)
+"nmap <C-i> <Action>(Forward)
 
 " 在普通和插入模式下，向下交换行/向上交换行 -- 修改idea设置中的键盘映射较好
 "nmap <C-S-J> :m +1<CR>
 "nmap <C-S-K> :m -2<CR>
 "imap <C-S-J> <Esc> :m +1<CR>gi
 "imap <C-S-K> <Esc> :m -2<CR>gi
+
+" 打开终端
+nmap `` <Action>(ActivateTerminalToolWindow)
 
 " 查找当前元素的上/下一个应用位置
 map <C-j> <Action>(GotoNextElementUnderCaretUsage)
@@ -62,7 +67,7 @@ xmap <BS> <Action>(EditorUnSelectWord)
 " jk 映射为 <Esc>
 imap jk <Esc>
 
-" --格式化（规范化）文本，即对选定的文本进行换行或重排，适应指定的文本宽度。
+" 格式化（规范化）文本，即对选定的文本进行换行或重排，适应指定的文本宽度。
 " 全文规范化：Ctrl+Alt+l --> Don't use Ex mode, use Q for formatting.
 map Q gq
 " 在源代码和测试代码之间快速切换
@@ -77,9 +82,15 @@ nmap ]e <Action>(GotoNextError)
 nmap [f <Action>(MethodUp)
 nmap ]f <Action>(MethodDown)
 " 切换上/下一个分割窗口
-nmap [s <Action>(PrevSplitter)
-nmap ]s <Action>(NextSplitter)
+"nmap [s <Action>(PrevSplitter)
+"nmap ]s <Action>(NextSplitter)
+" 对分割标签页窗口的选择，左/下/上/右 移动选择
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
+" ==== toggle 开关 ====
 " 当前行书签启用/禁用
 nmap tm <Action>(ToggleBookmark)
 " 当前行断点启用/禁用
@@ -90,6 +101,7 @@ nmap tb <Action>(XDebugger.MuteBreakpoints)
 " 切换标签页
 nmap L <Action>(NextTab)
 nmap H <Action>(PreviousTab)
+" Tab 缩进
 nmap <tab> V>
 nmap <s-tab> V<
 vmap <tab> >gv
@@ -98,7 +110,6 @@ vmap <s-tab> <gv
 " 将Ctrl + s 映射为保存文档(也可以在VIM设置里将此快捷键设置为IDEA的快捷键)
 nmap <C-S> <Action>(SaveAll)
 imap <C-S> <Esc><Action>(SaveAll)
-
 
 " 类查找
 nmap gw <Action>(GotoClass)
@@ -118,6 +129,7 @@ nmap gim <Action>(ImplementMethods)
 nmap gcc <Action>(CommentByLineComment)
 xmap gc <Action>(CommentByLineComment)<Esc>
 
+
 " ================================================================================================
 " Leader Keymaps
 " ================================================================================================
@@ -130,16 +142,11 @@ let mapleader = " "
 set which-key
 set notimeout
 
-
 " ================================================================================================;
-" <leader>详细配置
+" <leader> 详细配置
 " ================================================================================================
-" 这一行为在按下<leader>后显示的,甭管就行
+" 这一行为在按下 <leader> 后显示
 let g:WhichKeyDesc_LeaderKeymap= "<leader> 🌟🌟🌟LeaderKeymap🌟🌟🌟"
-
-" 打开终端
-nmap `` <Action>(ActivateTerminalToolWindow)
-nmap <leader>\\ <Action>(SplitVertically)
 
 "========== a ==========
 "========== b ==========
@@ -149,11 +156,20 @@ let g:WhichKeyDesc_CodeAndClose = "<leader>c CodeAndClose"
 let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca CloseAllEditors"
 nmap <leader>C <Action>(CloseAllEditors)
 " 关闭当前标签页
-let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>ce CloseEditor"
+let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>c CloseEditor"
 nmap <leader>c <Action>(CloseEditor)
-" 代码自动补全 (使用IDEA的 Ctrl + space 即可)
-"let g:WhichKeyDesc_CodeAndClose_CodeCompletion = "<leader>cc CodeCompletion"
-"nmap <leader>cc <Action>(CodeCompletion)
+" 关闭当前标签页的左边标签页
+let g:WhichKeyDesc_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
+nmap <leader>cl <Action>(CloseAllToTheLeft)
+" 关闭当前标签页的右边标签页
+let g:WhichKeyDesc_CloseAllToTheRight = "<leader>cr CloseAllToTheRight"
+nmap <leader>cr <Action>(CloseAllToTheRight)
+" 关闭除了当前标签页的其他所有标签页
+let g:WhichKeyDesc_CloseAllEditorsButActive = "<leader>co CloseAllEditorsButActive"
+nmap <leader>co <Action>(CloseAllEditorsButActive)
+" 关闭所有未修改的标签页
+let g:WhichKeyDesc_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodifiedEditors"
+nmap <leader>cu <Action>(CloseAllUnmodifiedEditors)
 
 "========== d ==========
 let g:WhichKeyDesc_DeBugOrDelete= "<leader>d DebugOrDelete"
@@ -234,7 +250,6 @@ nmap <leader>h <Action>(HideAllWindows)
 let g:WhichKeyDesc_InsertAfterBrackets = "<leader>i InsertAfterBrackets"
 nmap <leader>i f(a
 
-
 "========== j ==========
 " 普通模式下在行尾一个分号，然后进入插入模式并在当前行的下方新建一行
 let g:WhichKeyDesc_InsertSemicolon = "<leader>j InsertSemicolon"
@@ -242,7 +257,6 @@ nmap <leader>j A;<ESC>o
 
 "========== k ==========
 "========== l ==========
-
 "========== m ==========
 " 打开/关闭 代码小地图
 let g:WhichKeyDesc_CodeGlance = "<leader>m CodeGlance"
@@ -279,10 +293,9 @@ nmap <leader>nf <Action>(NewFile)
 "vmap <leader>P "+P
 
 "========== q ==========
-" 退出
+" 退出当前项目
 let g:WhichKeyDesc_Quit = "<leader>q quit"
-nmap <leader>q :q<CR>
-nmap <C-q> :q<CR>
+nmap <leader>q <Action>(CloseProject)
 
 "========== r ==========
 let g:WhichKeyDesc_RunOrRe = "<leader>r RunOrRe"
@@ -304,6 +317,18 @@ map <leader>rn <Action>(RenameElement)
 let g:WhichKeyDesc_SurroundWith = "<leader>sw SurroundWith"
 nmap <leader>sw <Action>(SurroundWith)
 vmap <leader>sw <Action>(SurroundWith)
+" 将标签页移到右边
+let g:WhichKeyDesc_SplitAndMoveTabRight = "<leader>sr SplitAndMoveTabRight"
+nmap <leader>sr <Action>(MoveTabRight)
+" 将标签页移到下边
+let g:WhichKeyDesc_SplitAndMoveTabDown = "<leader>sd SplitAndMoveTabDown"
+nmap <leader>sd <Action>(MoveTabDown)
+" 改变标签页的分割方向
+let g:WhichKeyDesc_ChangeSplitOrientation = "<leader>sc ChangeSplitOrientation"
+nmap <leader>sc <Action>(ChangeSplitOrientation)
+" 取消标签页的分割
+let g:WhichKeyDesc_Unsplit = "<leader>su Unsplit"
+nmap <leader>su <Action>(Unsplit)
 
 "========= t ==========
 " 翻译
@@ -373,8 +398,8 @@ xmap rs <Plug>ReplaceWithRegisterVisual
 
 " sethandler 处理 vim 快捷键映射冲突
 sethandler <C-q> a:ide
-sethandler <C-h> a:ide
-sethandler <C-j> a:vim i:ide
-sethandler <C-k> a:vim i:ide
-sethandler <C-l> a:ide
+"sethandler <C-h> a:vim
+"sethandler <C-j> a:vim i:ide
+"sethandler <C-k> a:vim i:ide
+"sethandler <C-l> a:vim
 sethandler <C-S-V> a:vim

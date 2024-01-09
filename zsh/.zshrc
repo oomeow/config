@@ -250,7 +250,7 @@ export PATH=$HOME/.spicetify:$PATH
 
 ### ========== alias ==========
 ### change gtk4 theme script
-alias change-theme="python ${HOME}/.change_gtk4_theme.py"
+alias change-theme="python $HOME/.change_gtk4_theme.py"
 alias sourcezsh="source $HOME/.zshrc"
 if type deborphan > /dev/null 2>&1; then
     alias cleanOS="sudo apt-get remove --purge `deborphan`"
