@@ -1,16 +1,16 @@
-" ==== plugins ====
+" ======== plugins ========
 set surround
 set multiple-cursors
 set NERDTree
 set easymotion
 set ReplaceWithRegister
-" ==== plugins ====
+" ======== plugins ========
 
 " 捕获当前操作的 action id
 set trackactionids
 
+" 通用设置
 set ideajoin
-" search
 set scrolloff=5
 set incsearch
 set ignorecase
@@ -19,25 +19,19 @@ set hlsearch
 set nu
 set rnu
 
-" 设置返回normal模式时回到英文输入法
+" 设置返回 normal 模式时回到英文输入法
 set keep-english-in-normal
 " 系统剪贴板
-set clipboard+=unnamedplus
-" set clipboard^=unnamed,unnamedplus
+set clipboard=unnamedplus
 
 " ================================================================================================
 " No Leader Keymaps
 " ================================================================================================
-" 普通模式下使用回车键，向下/向上 增加一行
-"nmap <CR> o<Esc>
-"nmap <S-Enter> O<Esc>
-
-" 复制粘贴 (使用了unnamedplus,无需设置以下的映射)
-"map <C-c> "+y
+" 复制粘贴
+map <C-c> "+y
+imap <C-v> <C-r>+
 "map <C-S-V> "+p
-"nmap <C-v> p
 "vmap <C-v> "+p
-"imap <C-v> <C-r>+
 
 " 重新执行一次 redo
 nmap U <C-r>
@@ -45,7 +39,7 @@ nmap U <C-r>
 "nmap <C-o> <Action>(Back)
 "nmap <C-i> <Action>(Forward)
 
-" 在普通和插入模式下，向下交换行/向上交换行 -- 修改idea设置中的键盘映射较好
+" 在普通和插入模式下，向下交换行/向上交换行 --> 推荐修改idea设置中的键盘映射
 "nmap <C-S-J> :m +1<CR>
 "nmap <C-S-K> :m -2<CR>
 "imap <C-S-J> <Esc> :m +1<CR>gi
@@ -58,7 +52,7 @@ nmap `` <Action>(ActivateTerminalToolWindow)
 map <C-j> <Action>(GotoNextElementUnderCaretUsage)
 map <C-k> <Action>(GotoPrevElementUnderCaretUsage)
 
-" 类 wildfire, 类似 Ctrl + w 快捷键 选中范围
+" 类 wildfire,是 IDEA 中的 (Ctrl + w) 选中范围的快捷键
 nmap <Enter> <Action>(EditorSelectWord)
 nmap <BS> <Action>(EditorUnSelectWord)
 xmap <Enter> <Action>(EditorSelectWord)
@@ -88,26 +82,26 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-" ==== toggle 开关 ====
+" ======== toggle 开关 ========
 " 当前行书签启用/禁用
 nmap tm <Action>(ToggleBookmark)
 " 当前行断点启用/禁用
 nmap tl <Action>(ToggleLineBreakpoint)
-" debug模式启用/禁用
+" debug 模式启用/禁用
 nmap tb <Action>(XDebugger.MuteBreakpoints)
 
 " 切换标签页
 nmap L <Action>(NextTab)
 nmap H <Action>(PreviousTab)
-" Tab 缩进
+" Tab 按键缩进
 nmap <tab> V>
 nmap <s-tab> V<
 vmap <tab> >gv
 vmap <s-tab> <gv
 
-" 将Ctrl + s 映射为保存文档(也可以在VIM设置里将此快捷键设置为IDEA的快捷键)
-nmap <C-S> <Action>(SaveAll)
-imap <C-S> <Esc><Action>(SaveAll)
+" 将 (Ctrl + s) 映射为保存文档(也可以在 VIM 设置里将此快捷键设置为 IDEA 的快捷键)
+nmap <C-s> <Action>(SaveAll)
+imap <C-s> <Esc><Action>(SaveAll)
 
 " 类查找
 nmap gw <Action>(GotoClass)
@@ -139,6 +133,7 @@ let mapleader = " "
 " which-key 的官方推荐配置
 set which-key
 set notimeout
+" 按键的超时设置
 "set timeout
 "set timeoutlen=1000
 
@@ -151,50 +146,52 @@ let g:WhichKeyDesc_LeaderKeymap= "<leader> 🌟🌟🌟LeaderKeymap🌟🌟🌟"
 "========== a ==========
 "========== b ==========
 "========== c ==========
-let g:WhichKeyDesc_CodeAndClose = "<leader>c CodeAndClose"
-" 关闭所有标签页
-let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca CloseAllEditors"
-nmap <leader>C <Action>(CloseAllEditors)
+let g:WhichKeyDesc_Close = "<leader>c Close"
 " 关闭当前标签页
-let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>ce CloseEditor"
-nmap <leader>ce <Action>(CloseEditor)
+let g:WhichKeyDesc_Close_CloseContent = "<leader>cc CloseContent"
+nmap <leader>cc <Action>(CloseContent)
+" 关闭所有标签页
+let g:WhichKeyDesc_Close_CloseAllEditors = "<leader>ca CloseAllEditors"
+nmap <leader>C <Action>(CloseAllEditors)
 " 关闭当前标签页的左边标签页
-let g:WhichKeyDesc_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
+let g:WhichKeyDesc_Close_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
 nmap <leader>cl <Action>(CloseAllToTheLeft)
 " 关闭当前标签页的右边标签页
-let g:WhichKeyDesc_CloseAllToTheRight = "<leader>cr CloseAllToTheRight"
+let g:WhichKeyDesc_Close_CloseAllToTheRight = "<leader>cr CloseAllToTheRight"
 nmap <leader>cr <Action>(CloseAllToTheRight)
 " 关闭除了当前标签页的其他所有标签页
-let g:WhichKeyDesc_CloseAllEditorsButActive = "<leader>co CloseAllEditorsButActive"
+let g:WhichKeyDesc_Close_CloseAllEditorsButActive = "<leader>co CloseAllEditorsButActive"
 nmap <leader>co <Action>(CloseAllEditorsButActive)
 " 关闭所有未修改的标签页
-let g:WhichKeyDesc_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodifiedEditors"
+let g:WhichKeyDesc_Close_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodifiedEditors"
 nmap <leader>cu <Action>(CloseAllUnmodifiedEditors)
 
 "========== d ==========
-let g:WhichKeyDesc_DeBugOrDelete= "<leader>d DebugOrDelete"
+let g:WhichKeyDesc_DebugOrEvaluate= "<leader>d DebugOrEvaluate"
 " 调试类
-let g:WhichKeyDesc_DebugOrDelete_DeBugClass = "<leader>db DebugClass"
+let g:WhichKeyDesc_DebugOrEvaluate_DeBugClass = "<leader>db DebugClass"
 nmap <leader>db <Action>(DebugClass)
-" 在可视模式中：删除选择的文本并复制到剪切板
-"let g:WhichKeyDesc_DebugOrDelete_DeleteAndCopyToClipboard = "<leader>dd DeleteAndCopyClipboard"
-"vmap <leader>dd "+d
-" debug时，计算表达式
-let g:WhichKeyDesc_DebugOrDelete_EvaluateExpression = "<leader>de EvaluateExpression"
+" debug 状态中，计算表达式
+let g:WhichKeyDesc_DebugOrEvaluate_EvaluateExpression = "<leader>de EvaluateExpression"
 nmap <leader>de <Action>(EvaluateExpression)
 
 "========== e ==========
-" 激活项目工具窗口(Alt + 1)
-"let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorer"
+let g:WhichKeyDesc_ToggleExplorerOrExtract= "<leader>e ToggleExplorerOrExtract"
+" 打开左侧项目资源
+let g:WhichKeyDesc_ToggleExplorerOrExtract_ToggleExplorer = "<leader>e ToggleExplorer"
 nmap <leader>e <Action>(ActivateProjectToolWindow)
 " e: Extract 提取, 在 v 模式下选中一段代码进行提取
 " extract method/function 将选中的代码片段提取为一个独立的方法(Ctrl + Alt + M)
+let g:WhichKeyDesc_ToggleExplorerOrExtract_ExtractMethod = "<leader>em ExtractMethod"
 vmap <leader>em <Action>(ExtractMethod)
 " extract constant （引入常量）的重构操作:将选中的代码片段抽取为一个常量，并自动替换选中的代码片段为新的常量引用(Ctrl + Alt + C)
+let g:WhichKeyDesc_ToggleExplorerOrExtract_IntroduceConstant = "<leader>ec IntroduceConstant"
 vmap <leader>ec <Action>(IntroduceConstant)
 " extract field （引入字段）的重构操作:将选中的代码片段转化为一个新的字段，并自动将选中的代码片段替换为对该字段的引用(Ctrl + Alt + F)
+let g:WhichKeyDesc_ToggleExplorerOrExtract_IntroduceField = "<leader>ef IntroduceField"
 vmap <leader>ef <Action>(IntroduceField)
 " extract variable （引入变量）的重构操作:将选中的代码片段抽取为一个新的变量，并自动替换选中的代码片段为新的变量引用(Ctrl + Alt + V)
+let g:WhichKeyDesc_ToggleExplorerOrExtract_IntroduceVariable = "<leader>ev IntroduceVariable"
 vmap <leader>ev <Action>(IntroduceVariable)
 
 "========== f ==========
@@ -208,7 +205,7 @@ nmap <leader>ff <Action>(GotoFile)
 " 将当前编辑的文件在项目视图中进行选中定位(Alt + F1)
 let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
 nmap <leader>fl <Action>(SelectInProjectView)
-" 在整个项目中查找指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等 Ctrl + Shift + F
+" 在整个项目中查找指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等 (Ctrl + Shift + F)
 let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>fw FindText"
 nmap <leader>fw <Action>(FindInPath)
 " 在整个项目中查找并替换指定的文本、关键字或正则表达式，包括代码文件、配置文件和其他文件等
@@ -221,7 +218,7 @@ vmap <leader>fm <Action>(ReformatCode) \| <Action>(OptimizeImports)
 " 定位当前文件位置
 let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
 nmap <leader>fl <Action>(SelectInProjectView)
-" 打开最近的项目
+" 最近打开的项目
 let g:WhichKeyDesc_FindOrFormat_OpenRecentlyProject = "<leader>fs OpenRecentlyProject"
 nmap <leader>fs <Action>($LRU)
 
@@ -236,9 +233,9 @@ nmap <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
 " git merge
 let g:WhichKeyDesc_DebugOrDelete_GitMerge = "<leader>gm GitMerge"
 nmap <leader>gm <Action>(Git.Merge)
-" generator提示操作
-"let g:WhichKeyDesc_DebugOrDelete_ShowGenerate = "<leader>gt ShowGenerate"
-"nmap <leader>gt <Action>(Generate)
+" git compare same version file
+let g:WhichKeyDesc_CompareSameVersionDiff = "<leader>gd CompareSameVersionDiff"
+nmap <leader>gd <Action>(Compare.SameVersion)
 
 "========== h ==========
 " 隐藏所有编辑器之外的窗口
@@ -246,21 +243,21 @@ let g:WhichKeyDesc_HideAllWindows = "<leader>h HideAllWindows"
 nmap <leader>h <Action>(HideAllWindows)
 
 "========== i ==========
-" 快速查找并跳转到下一个以 ( 开始的函数或方法调用的位置️
+" 快速查找并跳转到下一个以 `(` 开始的函数或方法调用的位置️
 let g:WhichKeyDesc_InsertAfterBrackets = "<leader>i InsertAfterBrackets"
 nmap <leader>i f(a
 
 "========== j ==========
 " 普通模式下在行尾一个分号，然后进入插入模式并在当前行的下方新建一行
 let g:WhichKeyDesc_InsertSemicolon = "<leader>j InsertSemicolon"
-nmap <leader>j A;<ESC>o
+nmap <leader>j A;<Esc>o
 
 "========== k ==========
 "========== l ==========
 "========== m ==========
 " 打开/关闭 代码小地图
 let g:WhichKeyDesc_CodeGlance = "<leader>m CodeGlance"
-nmap <leader>m <Action>(CodeGlance.toggle)
+nmap <leader>m <Action>(CodeGlancePro.toggle)
 
 "========== n ==========
 let g:WhichKeyDesc_NERDTreeOrNew = "<leader>n NERDTreeOrNew"
@@ -293,50 +290,51 @@ nmap <leader>nf <Action>(NewFile)
 "vmap <leader>P "+P
 
 "========== q ==========
-" 退出当前项目
+" 退出 IDEA
 let g:WhichKeyDesc_Quit = "<leader>q quit"
 "nmap <leader>q <Action>(CloseProject)
 nmap <leader>q <Action>(Exit)
 
 "========== r ==========
 let g:WhichKeyDesc_RunOrRe = "<leader>r RunOrRe"
-" 运行当前编辑器中的文件或类 Shift + F10 
+" 运行当前编辑器中的文件或类 (Shift + F10)
 let g:WhichKeyDesc_RunOrRe_RunClass = "<leader>rc RunClass"
 nmap <leader>rc <Action>(RunClass)
-" 重新运行最近一次运行的程序或测试 Ctrl+Shift + F10 
+" 重新运行最近一次运行的程序或测试 (Ctrl+Shift + F10)
 let g:WhichKeyDesc_RunOrRe_ReRun = "<leader>rr ReRun"
 nmap <leader>rr <Action>(Rerun)
-" 重新运行最近一次运行的测试（Unit Tests） Ctrl + Shift + F10 
+" 重新运行最近一次运行的测试（Unit Tests） (Ctrl + Shift + F10)
 let g:WhichKeyDesc_RunOrRe_ReRunTests = "<leader>rt ReRunTests"
 nmap <leader>rt <Action>(RerunTests)
-" 在代码中快速更改一个标识符的名称，并自动处理所有相关的引用 Shift + F6 
+" 在代码中快速更改一个标识符的名称，并自动处理所有相关的引用 (Shift + F6)
 let g:WhichKeyDesc_RunOrRe_Rename = "<leader>rn Rename"
 map <leader>rn <Action>(RenameElement)
 
 "========== s ==========
-" Surround With
-let g:WhichKeyDesc_SurroundWith = "<leader>sw SurroundWith"
+let g:WhichKeyDesc_SurroundWithOrSplit = "<leader>s SurroundWithOrSplit"
+" Surround With, 使用...来包裹代码
+let g:WhichKeyDesc_SurroundWithOrSplit_SurroundWith = "<leader>sw SurroundWith"
 nmap <leader>sw <Action>(SurroundWith)
 vmap <leader>sw <Action>(SurroundWith)
 " 将标签页移到右边
-let g:WhichKeyDesc_SplitAndMoveTabRight = "<leader>sr SplitAndMoveTabRight"
+let g:WhichKeyDesc_SurroundWithOrSplit_SplitAndMoveTabRight = "<leader>sr SplitAndMoveTabRight"
 nmap <leader>sr <Action>(MoveTabRight)
 " 将标签页移到下边
-let g:WhichKeyDesc_SplitAndMoveTabDown = "<leader>sd SplitAndMoveTabDown"
+let g:WhichKeyDesc_SurroundWithOrSplit_SplitAndMoveTabDown = "<leader>sd SplitAndMoveTabDown"
 nmap <leader>sd <Action>(MoveTabDown)
 " 改变标签页的分割方向
-let g:WhichKeyDesc_ChangeSplitOrientation = "<leader>sc ChangeSplitOrientation"
+let g:WhichKeyDesc_SurroundWithOrSplit_ChangeSplitOrientation = "<leader>sc ChangeSplitOrientation"
 nmap <leader>sc <Action>(ChangeSplitOrientation)
 " 取消标签页的分割
-let g:WhichKeyDesc_Unsplit = "<leader>su Unsplit"
+let g:WhichKeyDesc_SurroundWithOrSplitsplit = "<leader>su Unsplit"
 nmap <leader>su <Action>(Unsplit)
 
 "========= t ==========
 " 翻译
-let g:WhichKeyDesc_Translate = "<leader>t translate"
+let g:WhichKeyDesc_Translate = "<leader>t Translate"
 nmap <leader>t <Action>($EditorTranslateAction)
 vmap <leader>t <Action>($EditorTranslateAction)
-let g:WhichKeyDesc_Translate_Dialog = "<leader>T translateDialog"
+let g:WhichKeyDesc_Translate_Dialog = "<leader>T TranslateDialog"
 nmap <leader>T <Action>($ShowTranslationDialogAction)
 
 "========== u ==========
@@ -356,32 +354,32 @@ nmap <leader>T <Action>($ShowTranslationDialogAction)
 
 "========== z ==========
 let g:WhichKeyDesc_Zip = "<leader>z Zip"
-" 展开所有代码折叠区域 Ctrl + Shift + 加号键 
+" 展开所有代码折叠区域 (Ctrl + Shift + 加号键)
 let g:WhichKeyDesc_Zip_unZipAll = "<leader>zo unZipAll"
 nmap <leader>zo <Action>(ExpandAllRegions)
-" 折叠所有代码折叠区域 Ctrl + Shift + 减号键 
+" 折叠所有代码折叠区域 (Ctrl + Shift + 减号键)
 let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
 nmap <leader>zc <Action>(CollapseAllRegions)
 
 
 " ================================= Plugin 设置 start ======================================
-" easymotion
+" easymotion 设置
 let g:EasyMotion_do_mapping = 0
 nmap <leader><leader> <Plug>(easymotion-s)
 
-" NERDTree
-" 按下 <leader>nn 将使焦点转移到 NERDTree 窗口
+" NERDTree 设置
+" 将使焦点转移到 NERDTree 窗口
 let g:WhichKeyDesc_NERDTreeOrNo_NERDTreeFocus = "<leader>nn NERDTreeFocus"
 nmap <leader>nn :NERDTreeFocus<CR>
-" 按下 <C-n> 将打开 NERDTree 文件资源管理器
+" 打开 NERDTree 文件资源管理器
 " nnoremap <C-n> :NERDTree<CR>
-" 按下 <C-t> 将切换 NERDTree 文件资源管理器的显示状态，即打开或关闭 NERDTree
+" 切换 NERDTree 文件资源管理器的显示状态，即打开或关闭 NERDTree
 nmap <C-t> :NERDTreeToggle<CR>
-" 按下 <C-f> 将在 NERDTree 文件资源管理器中定位当前编辑文件所在的节点，并使其可见
+" 在 NERDTree 文件资源管理器中定位当前编辑文件所在的节点，并使其可见
 nmap <leader>o :NERDTreeFind<CR>
 
-" multiple-cursors 
-" remap multiple-cursors shortcuts
+" multiple-cursors 设置
+" multiple-cursors 的按键映射
 nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
 nmap <C-x> <Plug>SkipOccurrence
@@ -391,7 +389,8 @@ xmap <C-p> <Plug>RemoveOccurrence
 nmap <S-C-n> <Plug>AllWholeOccurrence
 xmap <S-C-n> <Plug>AllWholeOccurrence
 
-" replaceWithRegister map
+" replaceWithRegister 设置
+" replaceWithRegister 的按键映射
 nmap rs <Plug>ReplaceWithRegisterOperator
 nmap rss <Plug>ReplaceWithRegisterLine
 xmap rs <Plug>ReplaceWithRegisterVisual
