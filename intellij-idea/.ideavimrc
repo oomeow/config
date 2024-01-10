@@ -81,9 +81,7 @@ nmap ]e <Action>(GotoNextError)
 " 将光标移动到上/下一个方法的声明处
 nmap [f <Action>(MethodUp)
 nmap ]f <Action>(MethodDown)
-" 切换上/下一个分割窗口
-"nmap [s <Action>(PrevSplitter)
-"nmap ]s <Action>(NextSplitter)
+
 " 对分割标签页窗口的选择，左/下/上/右 移动选择
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -141,6 +139,7 @@ let mapleader = " "
 " which-key 的官方推荐配置
 set which-key
 set notimeout
+"set timeoutlen=5000
 
 " ================================================================================================;
 " <leader> 详细配置
@@ -295,7 +294,8 @@ nmap <leader>nf <Action>(NewFile)
 "========== q ==========
 " 退出当前项目
 let g:WhichKeyDesc_Quit = "<leader>q quit"
-nmap <leader>q <Action>(CloseProject)
+"nmap <leader>q <Action>(CloseProject)
+nmap <leader>q <Action>(Exit)
 
 "========== r ==========
 let g:WhichKeyDesc_RunOrRe = "<leader>r RunOrRe"
