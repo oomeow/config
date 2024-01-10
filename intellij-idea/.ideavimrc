@@ -139,7 +139,8 @@ let mapleader = " "
 " which-key 的官方推荐配置
 set which-key
 set notimeout
-"set timeoutlen=5000
+"set timeout
+"set timeoutlen=1000
 
 " ================================================================================================;
 " <leader> 详细配置
@@ -155,8 +156,8 @@ let g:WhichKeyDesc_CodeAndClose = "<leader>c CodeAndClose"
 let g:WhichKeyDesc_CodeAndClose_CloseAllEditors = "<leader>ca CloseAllEditors"
 nmap <leader>C <Action>(CloseAllEditors)
 " 关闭当前标签页
-let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>c CloseEditor"
-nmap <leader>c <Action>(CloseEditor)
+let g:WhichKeyDesc_CodeAndClose_CloseEditor = "<leader>ce CloseEditor"
+nmap <leader>ce <Action>(CloseEditor)
 " 关闭当前标签页的左边标签页
 let g:WhichKeyDesc_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
 nmap <leader>cl <Action>(CloseAllToTheLeft)
