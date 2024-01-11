@@ -246,6 +246,8 @@ export ANDROID_AVD_HOME=$HOME/android/avd
 export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
 ### spicetify [custom spotify theme]
 export PATH=$HOME/.spicetify:$PATH
+### go
+export PATH=/usr/local/go/bin:$PATH
 
 
 ### ========== alias ==========
