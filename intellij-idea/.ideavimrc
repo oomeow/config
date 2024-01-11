@@ -22,7 +22,7 @@ set rnu
 " 设置返回 normal 模式时回到英文输入法
 set keep-english-in-normal
 " 系统剪贴板
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 " ================================================================================================
 " No Leader Keymaps
