@@ -9,8 +9,8 @@
 # =======================================
 # shell proxy [ important!!! ]
 # =======================================
-# alias proxyset="export http_proxy=http://127.0.0.1:7897; export https_proxy=http://127.0.0.1:7897"
-# alias proxyunset="unset http_proxy; unset https_proxy"
+alias proxyset="export http_proxy=http://127.0.0.1:7897; export https_proxy=http://127.0.0.1:7897"
+alias proxyunset="unset http_proxy; unset https_proxy"
 # proxyset
 
 
@@ -73,28 +73,26 @@ zinit wait'0a' lucid for \
     OMZP::extract \
     OMZP::fancy-ctrl-z \
     OMZP::sudo \
-    as"completion" \
-    OMZP::docker/completions/_docker \
-    svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
-export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' \
-    OMZP::shell-proxy
+    as"completion" OMZP::docker/completions/_docker
+    # svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
+    # export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' OMZP::shell-proxy
 
 ### completion enhancements
 zinit wait"0a" lucid depth"1" for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     blockf \
     zdharma-continuum/fast-syntax-highlighting \
-    atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
+    atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
     zsh-users/zsh-completions \
     zsh-users/zsh-history-substring-search
 
 ### git extras
 zinit wait'0a' depth"1" lucid for \
-    as"null" src"etc/git-extras-completion.zsh" lbin="!bin/git-*" tj/git-extras
+    as"null" src"etc/git-extras-completion.zsh" lbin'!bin/git-*' tj/git-extras
 
 ### eza
-zinit ice wait"0a" lucid from"gh-r" as"program" pick"eza" atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
+zinit ice wait"0a" lucid from"gh-r" as"program" pick"eza" \
+    atload'alias ls="eza --icons=always"; alias ll="eza -l --icons=always"'
 zinit load eza-community/eza
 zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
 zinit load eza-community/eza
@@ -119,8 +117,7 @@ zinit load @sharkdp/bat
 zinit wait"0a" lucid pack"bgn-binary+keys"  \
     atinit"!export FZF_CTRL_T_COMMAND=\"fd --type f --hidden --follow --exclude .git ||
 git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'\"; 
-export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" \
-    for fzf
+export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" for fzf
 
 ### fd
 zinit wait"0a" lucid \
@@ -187,7 +184,7 @@ zinit wait"0a" lucid for conda-incubator/conda-zsh-completion
 zinit ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
 zinit load neovim/neovim
-# TODO change `your_password` to your password
+# TODO: change `your_password` to your password
 zinit ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
 zinit load zdharma-continuum/null
@@ -195,7 +192,7 @@ zinit load zdharma-continuum/null
 ### neovide
 zinit ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
 zinit load neovide/neovide
-# TODO change `your_password` to your password
+# TODO: change `your_password` to your password
 zinit ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
     atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
 zinit load zdharma-continuum/null
