@@ -22,7 +22,8 @@ set rnu
 " 设置返回 normal 模式时回到英文输入法
 set keep-english-in-normal
 " 系统剪贴板
-set clipboard+=unnamedplus
+"set clipboard+=unnamedplus
+set clipboard=unnamed
 
 " ================================================================================================
 " No Leader Keymaps
@@ -125,9 +126,7 @@ xmap gc <Action>(CommentByLineComment)<Esc>
 " ================================================================================================
 " Leader Keymaps
 " ================================================================================================
-" 将<leader>设置为 空格 键
-" 可自行更改，只需更改双引号内的内容即可
-" 推荐<leader>:  "空格"  ";"  "\"  "-"  ","
+" 将 <leader> 设置为 空格键
 let mapleader = " "
 
 " which-key 的官方推荐配置
@@ -135,23 +134,24 @@ set which-key
 set notimeout
 " 按键的超时设置
 "set timeout
-"set timeoutlen=1000
+"set timeoutlen=2000
 
 " ================================================================================================;
 " <leader> 详细配置
 " ================================================================================================
 " 这一行为在按下 <leader> 后显示
-let g:WhichKeyDesc_LeaderKeymap= "<leader> 🌟🌟🌟LeaderKeymap🌟🌟🌟"
+let g:WhichKeyDesc_LeaderKeymap = "<leader> 🌟🌟🌟 LeaderKeymap 🌟🌟🌟"
+let g:WhichKey_SortOrder = "by_key_prefix_last"
 
 "========== a ==========
 "========== b ==========
 "========== c ==========
 let g:WhichKeyDesc_Close = "<leader>c Close"
 " 关闭当前标签页
-let g:WhichKeyDesc_Close_CloseContent = "<leader>cc CloseContent"
-nmap <leader>cc <Action>(CloseContent)
+let g:WhichKeyDesc_Close_CloseContent = "<leader>c CloseContent"
+nmap <leader>c <Action>(CloseContent)
 " 关闭所有标签页
-let g:WhichKeyDesc_Close_CloseAllEditors = "<leader>ca CloseAllEditors"
+let g:WhichKeyDesc_Close_CloseAllEditors = "<leader>C CloseAllEditors"
 nmap <leader>C <Action>(CloseAllEditors)
 " 关闭当前标签页的左边标签页
 let g:WhichKeyDesc_Close_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
@@ -167,7 +167,7 @@ let g:WhichKeyDesc_Close_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodif
 nmap <leader>cu <Action>(CloseAllUnmodifiedEditors)
 
 "========== d ==========
-let g:WhichKeyDesc_DebugOrEvaluate= "<leader>d DebugOrEvaluate"
+let g:WhichKeyDesc_DebugOrEvaluate = "<leader>d DebugOrEvaluate"
 " 调试类
 let g:WhichKeyDesc_DebugOrEvaluate_DeBugClass = "<leader>db DebugClass"
 nmap <leader>db <Action>(DebugClass)
@@ -176,7 +176,7 @@ let g:WhichKeyDesc_DebugOrEvaluate_EvaluateExpression = "<leader>de EvaluateExpr
 nmap <leader>de <Action>(EvaluateExpression)
 
 "========== e ==========
-let g:WhichKeyDesc_ToggleExplorerOrExtract= "<leader>e ToggleExplorerOrExtract"
+let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorerOrExtract"
 " 打开左侧项目资源
 let g:WhichKeyDesc_ToggleExplorerOrExtract_ToggleExplorer = "<leader>e ToggleExplorer"
 nmap <leader>e <Action>(ActivateProjectToolWindow)
@@ -236,6 +236,10 @@ nmap <leader>gm <Action>(Git.Merge)
 " git compare same version file
 let g:WhichKeyDesc_CompareSameVersionDiff = "<leader>gd CompareSameVersionDiff"
 nmap <leader>gd <Action>(Compare.SameVersion)
+" update project
+let g:WhichKeyDesc_CompareSameVersionDiff = "<leader>gu UpdateProject"
+nmap <leader>gu <Action>(Vcs.UpdateProject)
+
 
 "========== h ==========
 " 隐藏所有编辑器之外的窗口
@@ -273,18 +277,24 @@ nmap <leader>nc <Action>(NewClass)
 " 在当前目录新建文件
 let g:WhichKeyDesc_NERDTreeOrNew_NewFile = "<leader>nf NewFile"
 nmap <leader>nf <Action>(NewFile)
+" 将使焦点转移到 NERDTree 窗口
+let g:WhichKeyDesc_NERDTreeOrNew_NERDTreeFocus = "<leader>nn NERDTreeFocus"
+nmap <leader>nn :NERDTreeFocus<CR>
+let g:WhichKeyDesc_NERDTreeOrNew_NERDTreeFind = "<leader>o NERDTreeFind"
+" 在 NERDTree 文件资源管理器中定位当前编辑文件所在的节点，并使其可见
+nmap <leader>o :NERDTreeFind<CR>
 
 "========== o ==========
 "========== p ==========
-" 从剪切板粘贴到下面行
-"let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
-"nmap <leader>p "+p
+" 从剪切板粘贴
+let g:WhichKeyDesc_PasteClipboard = "<leader>p PasteClipboard"
+nmap <leader>p "+p
 " 从剪切板粘贴到上面行
 "let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
 "nmap <leader>P "+P
-" 在可视模式中：从剪切板粘贴到下面行
-"let g:WhichKeyDesc_PasteClipboardDown = "<leader>p PasteClipboardDown"
-"vmap <leader>p "+p
+" 在可视模式中：从剪切板粘贴
+"let g:WhichKeyDesc_PasteClipboardToVisual = "<leader>p PasteClipboardToVisual"
+vmap <leader>p "+p
 " 在可视模式中：从剪切板粘贴到上面行
 "let g:WhichKeyDesc_PasteClipboardUp = "<leader>P PasteClipboardUp"
 "vmap <leader>P "+P
@@ -342,12 +352,12 @@ nmap <leader>T <Action>($ShowTranslationDialogAction)
 "========== w ==========
 "========== x ==========
 "========== y ==========
-"let g:WhichKeyDesc_CopyClipboard = "<leader>y CopyClipboard"
-" 将 "+ 简化为 <leader>
-"vmap <leader>y "+y
-"" 将 "+ 简化为 <leader>
-"let g:WhichKeyDesc_CopyClipboard= "<leader>y CopyClipboard"
-"nmap <leader>y "+yy
+" 将内容复制到剪贴板
+let g:WhichKeyDesc_CopyClipboard_CopySelect = "<leader>y CopySelect"
+vmap <leader>y "+y
+" 将一整行复制到剪贴板
+let g:WhichKeyDesc_CopyClipboard_CopyLine = "<leader>yy CopyLine"
+nmap <leader>yy "+yy
 " 复制整个文件内容
 "let g:WhichKeyDesc_CopyAllFileContent = "<leader>y CopyAllFileContent"
 "map <leader>y mmggVGy`m
@@ -368,18 +378,11 @@ let g:EasyMotion_do_mapping = 0
 nmap <leader><leader> <Plug>(easymotion-s)
 
 " NERDTree 设置
-" 将使焦点转移到 NERDTree 窗口
-let g:WhichKeyDesc_NERDTreeOrNo_NERDTreeFocus = "<leader>nn NERDTreeFocus"
-nmap <leader>nn :NERDTreeFocus<CR>
-" 打开 NERDTree 文件资源管理器
-" nnoremap <C-n> :NERDTree<CR>
+" leader 的按键设置在字母 n 的映射上
 " 切换 NERDTree 文件资源管理器的显示状态，即打开或关闭 NERDTree
 nmap <C-t> :NERDTreeToggle<CR>
-" 在 NERDTree 文件资源管理器中定位当前编辑文件所在的节点，并使其可见
-nmap <leader>o :NERDTreeFind<CR>
 
-" multiple-cursors 设置
-" multiple-cursors 的按键映射
+" multiple-cursors 按键映射设置
 nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
 nmap <C-x> <Plug>SkipOccurrence
@@ -389,8 +392,7 @@ xmap <C-p> <Plug>RemoveOccurrence
 nmap <S-C-n> <Plug>AllWholeOccurrence
 xmap <S-C-n> <Plug>AllWholeOccurrence
 
-" replaceWithRegister 设置
-" replaceWithRegister 的按键映射
+" replaceWithRegister 按键映射设置
 nmap rs <Plug>ReplaceWithRegisterOperator
 nmap rss <Plug>ReplaceWithRegisterLine
 xmap rs <Plug>ReplaceWithRegisterVisual
