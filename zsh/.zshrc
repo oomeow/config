@@ -251,6 +251,7 @@ export PATH=/usr/local/go/bin:$PATH
 ### change gtk4 theme script
 alias change-theme="python $HOME/.change_gtk4_theme.py"
 alias sourcezsh="source $HOME/.zshrc"
+alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
 if type deborphan > /dev/null 2>&1; then
     alias cleanOS="sudo apt-get remove --purge `deborphan`"
 fi
