@@ -7,7 +7,7 @@ set ReplaceWithRegister
 " ======== plugins ========
 
 " 捕获当前操作的 action id
-set trackactionids
+"set trackactionids
 
 " 通用设置
 set ideajoin
@@ -72,8 +72,8 @@ nmap gt <Action>(Generate)
 nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]c <Action>(VcsShowNextChangeMarker)
 " 跳转到上/下一个错误或警告
-nmap [e <Action>(GotoPreviousError)
-nmap ]e <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
 " 将光标移动到上/下一个方法的声明处
 nmap [f <Action>(MethodUp)
 nmap ]f <Action>(MethodDown)
@@ -91,13 +91,13 @@ nmap tm <Action>(ToggleBookmark)
 nmap tl <Action>(ToggleLineBreakpoint)
 " debug 模式启用/禁用
 nmap tb <Action>(XDebugger.MuteBreakpoints)
+" 文档注释渲染开关
+nmap td <Action>(ToggleRenderedDocPresentation)
 
 " 切换标签页
 nmap L <Action>(NextTab)
 nmap H <Action>(PreviousTab)
 " Tab 按键缩进
-nmap <tab> V>
-nmap <s-tab> V<
 vmap <tab> >gv
 vmap <s-tab> <gv
 
@@ -149,8 +149,8 @@ let g:WhichKey_SortOrder = "by_key_prefix_last"
 "========== c ==========
 let g:WhichKeyDesc_Close = "<leader>c Close"
 " 关闭当前标签页
-let g:WhichKeyDesc_Close_CloseContent = "<leader>c CloseContent"
-nmap <leader>c <Action>(CloseContent)
+let g:WhichKeyDesc_Close_CloseContent = "<leader>ci CloseContent"
+nmap <leader>ci <Action>(CloseContent)
 " 关闭所有标签页
 let g:WhichKeyDesc_Close_CloseAllEditors = "<leader>C CloseAllEditors"
 nmap <leader>C <Action>(CloseAllEditors)
@@ -228,6 +228,7 @@ let g:WhichKeyDesc_GitOrGenerate = "<leader>g Git"
 " 版本控制: rollback 回滚操作，将修改的代码还原到之前的版本
 let g:WhichKeyDesc_GitOrGenerate_RollbackHunk = "<leader>gr RollbackHunk"
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
+vmap <leader>gr <Action>(Vcs.RollbackChangedLines) \| <Esc>
 " 版本控制: diff 显示文件的版本控制历史
 let g:WhichKeyDesc_DebugOrDelete_ShowTabbedFileHistory = "<leader>gh ShowTabbedFileHistory"
 nmap <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
@@ -238,7 +239,7 @@ nmap <leader>gm <Action>(Git.Merge)
 let g:WhichKeyDesc_CompareSameVersionDiff = "<leader>gd CompareSameVersionDiff"
 nmap <leader>gd <Action>(Compare.SameVersion)
 " update project
-let g:WhichKeyDesc_CompareSameVersionDiff = "<leader>gu UpdateProject"
+let g:WhichKeyDesc_UpdateProject = "<leader>gu UpdateProject"
 nmap <leader>gu <Action>(Vcs.UpdateProject)
 
 
@@ -351,6 +352,8 @@ nmap <leader>T <Action>($ShowTranslationDialogAction)
 "========== u ==========
 "========== v ==========
 "========== w ==========
+nmap <leader>w <Action>(SaveAll)
+
 "========== x ==========
 "========== y ==========
 " 将内容复制到剪贴板
