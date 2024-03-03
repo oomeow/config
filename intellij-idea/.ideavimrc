@@ -148,24 +148,24 @@ let g:WhichKey_SortOrder = "by_key_prefix_last"
 "========== b ==========
 "========== c ==========
 let g:WhichKeyDesc_Close = "<leader>c Close"
-" 关闭当前标签页
-let g:WhichKeyDesc_Close_CloseContent = "<leader>ci CloseContent"
-nmap <leader>ci <Action>(CloseContent)
 " 关闭所有标签页
 let g:WhichKeyDesc_Close_CloseAllEditors = "<leader>C CloseAllEditors"
 nmap <leader>C <Action>(CloseAllEditors)
+" 关闭当前标签页
+let g:WhichKeyDesc_Close_CloseContent = "<leader>c CloseContent"
+nmap <leader>c <Action>(CloseContent)
 " 关闭当前标签页的左边标签页
-let g:WhichKeyDesc_Close_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
-nmap <leader>cl <Action>(CloseAllToTheLeft)
+"let g:WhichKeyDesc_Close_CloseAllToTheLeft = "<leader>cl CloseAllToTheLeft"
+"nmap <leader>cl <Action>(CloseAllToTheLeft)
 " 关闭当前标签页的右边标签页
-let g:WhichKeyDesc_Close_CloseAllToTheRight = "<leader>cr CloseAllToTheRight"
-nmap <leader>cr <Action>(CloseAllToTheRight)
+"let g:WhichKeyDesc_Close_CloseAllToTheRight = "<leader>cr CloseAllToTheRight"
+"nmap <leader>cr <Action>(CloseAllToTheRight)
 " 关闭除了当前标签页的其他所有标签页
-let g:WhichKeyDesc_Close_CloseAllEditorsButActive = "<leader>co CloseAllEditorsButActive"
-nmap <leader>co <Action>(CloseAllEditorsButActive)
+"let g:WhichKeyDesc_Close_CloseAllEditorsButActive = "<leader>co CloseAllEditorsButActive"
+"nmap <leader>co <Action>(CloseAllEditorsButActive)
 " 关闭所有未修改的标签页
-let g:WhichKeyDesc_Close_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodifiedEditors"
-nmap <leader>cu <Action>(CloseAllUnmodifiedEditors)
+"let g:WhichKeyDesc_Close_CloseAllUnmodifiedEditors = "<leader>cu CloseAllUnmodifiedEditors"
+"nmap <leader>cu <Action>(CloseAllUnmodifiedEditors)
 
 "========== d ==========
 let g:WhichKeyDesc_DebugOrEvaluate = "<leader>d DebugOrEvaluate"
