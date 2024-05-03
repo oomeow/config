@@ -9,8 +9,8 @@
 # =======================================
 # shell proxy [ important!!! ]
 # =======================================
-alias proxyset="export http_proxy=http://127.0.0.1:7897; export https_proxy=http://127.0.0.1:7897"
-alias proxyunset="unset http_proxy; unset https_proxy"
+# alias proxyset="export http_proxy=http://127.0.0.1:7897; export https_proxy=http://127.0.0.1:7897"
+# alias proxyunset="unset http_proxy; unset https_proxy"
 # proxyset
 
 
@@ -116,8 +116,8 @@ zinit load @sharkdp/bat
 ### fzf
 zinit wait"0a" lucid pack"bgn-binary+keys"  \
     atinit"!export FZF_CTRL_T_COMMAND=\"fd --type f --hidden --follow --exclude .git ||
-git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'\"; 
-export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" for fzf
+git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob '!.git'\"" for fzf
+# export FZF_DEFAULT_OPTS=\"--preview-window=right,50%,border-top\"" for fzf
 
 ### fd
 zinit wait"0a" lucid \
@@ -181,21 +181,21 @@ zsh-defer zinit lucid for commiyou/conda-init-zsh-plugin
 zinit wait"0a" lucid for conda-incubator/conda-zsh-completion
 
 ### neovim
-zinit ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
-    atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
-zinit load neovim/neovim
+# zinit ice wait"0a" lucid from"gh-r" as"program" mv"nvim-* -> nvim" pick"nvim/bin/nvim" \
+#     atload'alias zshrc="nvim $HOME/.zshrc"; alias snvim="sudo -E nvim"; export EDITOR=nvim'
+# zinit load neovim/neovim
 # TODO: change `your_password` to your password
-zinit ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
-    atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
-zinit load zdharma-continuum/null
+# zinit ice wait"1" if'[[ ! -f /usr/bin/nvim ]]' id-as"root-user-nvim-link" has"nvim" as"null" lucid \
+#     atclone'echo "your_password" | sudo -S ln -s $(which nvim) /usr/bin/nvim'
+# zinit load zdharma-continuum/null
 
 ### neovide
-zinit ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
-zinit load neovide/neovide
+# zinit ice wait"0b" lucid from"gh-r" as"program" sbin'neovide' atload'alias sneovide="sudo -E neovide"'
+# zinit load neovide/neovide
 # TODO: change `your_password` to your password
-zinit ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
-    atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
-zinit load zdharma-continuum/null
+# zinit ice wait"1" if'[[ ! -f /usr/bin/neovide ]]' id-as"root-user-neovide-link" has"neovide" as"null" lucid \
+#     atclone'echo "your_password" | sudo -S ln -s $(which neovide) /usr/bin/neovide'
+# zinit load zdharma-continuum/null
 
 ### follow plugins are ready for AstroNvim
 # ripgrep / lazygit / gdu [disk usage] / bottom [process viewer]
@@ -206,9 +206,9 @@ zinit wait"0a" lucid from"gh-r" as"program" for \
     sbin"btm" src"completion/_btm" ClementTsang/bottom
 
 ### jenv [java version manager]
-zinit lucid for \
-    as"program" pick"bin/jenv" src"completions/jenv.zsh" jenv/jenv \
-    @shihyuho/zsh-jenv-lazy
+# zinit lucid for \
+#     as"program" pick"bin/jenv" atload'eval $(jenv init -)' src"completions/jenv.zsh" jenv/jenv \
+#     @shihyuho/zsh-jenv-lazy
 
 ### sdkman
 # zinit ice as"program" pick"$ZPFX/sdkman/bin/sdk" id-as'sdkman' run-atpull \
@@ -218,24 +218,24 @@ zinit lucid for \
 # zinit light zdharma-continuum/null
 
 ### fnm [node version manager]
-zinit ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
-zinit light @Schniz/fnm
-zinit ice id-as"fnm_completion" has"fnm" as"completion" \
-    atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
-zinit light zdharma-continuum/null
+# zinit ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
+# zinit light @Schniz/fnm
+# zinit ice id-as"fnm_completion" has"fnm" as"completion" \
+#     atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
+# zinit light zdharma-continuum/null
 
 ### fvm [flutter version manager]
-zinit ice from"gh-r" as"program" sbin'fvm/fvm' \
-    atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
-zinit light leoafarias/fvm
+# zinit ice from"gh-r" as"program" sbin'fvm/fvm' \
+#     atload'export PUB_HOSTED_URL=https://pub.flutter-io.cn;
+# export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn; export PATH=$HOME/fvm/default/bin:$PATH'
+# zinit light leoafarias/fvm
 
 
 ### ========== export env ==========
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
-### jetbrains ideas active script
+### idea
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 ### android sdk
 export ANDROID_HOME=$HOME/android/sdk
@@ -248,13 +248,17 @@ export PATH=/usr/local/go/bin:$PATH
 
 
 ### ========== alias ==========
-### change gtk4 theme script
-alias change-theme="python $HOME/.change_gtk4_theme.py"
+alias cls="clear"
 alias sourcezsh="source $HOME/.zshrc"
-alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
-if type deborphan > /dev/null 2>&1; then
-    alias cleanOS="sudo apt-get remove --purge `deborphan`"
-fi
+### change gtk4 theme script
+# alias change-theme="python $HOME/.change_gtk4_theme.py"
+# alias snivm="sudo -E nvim"
+# alias sneovide="sudo -E neovide"
+### kitty
+# alias update-kitty="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
+# if type deborphan > /dev/null 2>&1; then
+#     alias cleanOS="sudo apt-get remove --purge `deborphan`"
+# fi
 
 ### ========== function ==========
 ### change brightness
