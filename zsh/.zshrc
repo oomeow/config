@@ -206,9 +206,9 @@ zinit wait"0a" lucid from"gh-r" as"program" for \
     sbin"btm" src"completion/_btm" ClementTsang/bottom
 
 ### jenv [java version manager]
-# zinit lucid for \
-#     as"program" pick"bin/jenv" atload'eval $(jenv init -)' src"completions/jenv.zsh" jenv/jenv \
-#     @shihyuho/zsh-jenv-lazy
+zinit lucid for \
+    as"program" pick"bin/jenv" atload'eval $(jenv init -)' src"completions/jenv.zsh" jenv/jenv \
+    @shihyuho/zsh-jenv-lazy
 
 ### sdkman
 # zinit ice as"program" pick"$ZPFX/sdkman/bin/sdk" id-as'sdkman' run-atpull \
@@ -232,6 +232,7 @@ zinit wait"0a" lucid from"gh-r" as"program" for \
 
 
 ### ========== export env ==========
+export EDITOR="nvim"
 ### maven
 export MAVEN_HOME=/opt/maven
 export PATH=${MAVEN_HOME}/bin:$PATH
@@ -250,6 +251,9 @@ export PATH=/usr/local/go/bin:$PATH
 ### ========== alias ==========
 alias cls="clear"
 alias sourcezsh="source $HOME/.zshrc"
+alias zshrc="nvim $HOME/.zshrc"
+alias snvim="sudo -E nvim"
+alias sneovide="sudo -E neovide"
 ### change gtk4 theme script
 # alias change-theme="python $HOME/.change_gtk4_theme.py"
 # alias snivm="sudo -E nvim"
