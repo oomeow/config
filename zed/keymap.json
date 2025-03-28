@@ -55,7 +55,9 @@
       // 切换右侧 AI Chat 栏
       "space i": "workspace::ToggleRightDock",
       // 快速修复 | 代码动作
-      "space .": "editor::ToggleCodeActions"
+      "space .": "editor::ToggleCodeActions",
+      // undo
+      "U": "vim::Undo"
     }
   },
   {
@@ -65,7 +67,8 @@
     }
   },
   {
-    "context": "Editor && vim_mode == insert && !menu",
+    // "context": "Editor && vim_mode == insert && !menu",
+    "context": "Editor && vim_mode == insert",
     "bindings": {
       "j k": "vim::SwitchToNormalMode"
     }
@@ -98,14 +101,20 @@
     "context": "Editor && (showing_code_actions || showing_completions)",
     "bindings": {
       // 使用 tab 键切换代码建议
-      "ctrl-k": "editor::ContextMenuPrevious",
-      "ctrl-j": "editor::ContextMenuNext"
+      "shift-tab": "editor::ContextMenuPrevious",
+      "tab": "editor::ContextMenuNext"
     }
   },
   {
     "context": "Workspace",
     "bindings": {
       "f7": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-n": "workspace::NewTerminal"
     }
   },
   {
