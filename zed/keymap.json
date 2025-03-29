@@ -56,8 +56,8 @@
       "space i": "workspace::ToggleRightDock",
       // 快速修复 | 代码动作
       "space .": "editor::ToggleCodeActions",
-      // undo
-      "U": "vim::Undo"
+      // Redo
+      "U": "vim::Redo"
     }
   },
   {
@@ -108,7 +108,8 @@
   {
     "context": "Workspace",
     "bindings": {
-      "f7": "terminal_panel::ToggleFocus"
+      "f7": "terminal_panel::ToggleFocus",
+      "f9": "workspace::ToggleBottomDock"
     }
   },
   {
