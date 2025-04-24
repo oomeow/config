@@ -24,6 +24,7 @@ set keep-english-in-normal
 " 系统剪贴板
 "set clipboard+=unnamedplus
 set clipboard=unnamed
+set clipboard^=ideaput
 
 " ================================================================================================
 " No Leader Keymaps

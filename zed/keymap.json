@@ -106,6 +106,13 @@
     }
   },
   {
+    "context": "Picker > Editor",
+    "bindings": {
+      "shift-tab": "menu::SelectPrevious",
+      "tab": "menu::SelectNext"
+    }
+  },
+  {
     "context": "Workspace",
     "bindings": {
       "f7": "terminal_panel::ToggleFocus",
