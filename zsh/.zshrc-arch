@@ -78,7 +78,7 @@ zinit wait'0a' lucid for \
     # export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' OMZP::shell-proxy
 
 ### completion enhancements
-zinit wait"0a" lucid depth"1" for \
+zinit wait"1a" lucid depth"1" for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     blockf \
     zdharma-continuum/fast-syntax-highlighting \
@@ -90,18 +90,16 @@ zinit wait"0a" lucid depth"1" for \
 zinit wait'0a' depth"1" lucid for \
     as"null" src"etc/git-extras-completion.zsh" lbin'!bin/git-*' tj/git-extras
 
-### eza
-zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
-zinit load eza-community/eza
-
 ### zsh-you-should-use
 zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 
-### zoxide
-eval "$(zoxide init zsh)"
+### paru
+zinit ice wait"0b" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
+zinit load Morganamilo/paru
 
-### fzf
-source <(fzf --zsh)
+### eza
+zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
+zinit load eza-community/eza
 
 ### fzf-tab
 zinit ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
@@ -112,7 +110,7 @@ zinit load Aloxaf/fzf-tab
 ###############################
 zstyle ':fzf-tab:*' fzf-pad 4
 # zstyle ':fzf-tab:*' fzf-min-height 8
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # ignore fzf-tab when suggestion less than 4
 zstyle ':fzf-tab:*' ignore 4
 # use group
@@ -163,9 +161,10 @@ zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 ### fnm [node version manager]
 # zinit ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 # zinit light @Schniz/fnm
-# zinit ice id-as"fnm_completion" has"fnm" as"completion" \
-#     atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
-# zinit light zdharma-continuum/null
+zinit ice id-as"fnm_completion" has"fnm" as"completion" \
+    atinit'eval "$(fnm env --use-on-cd --shell zsh)"' \
+    atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
+zinit light zdharma-continuum/null
 
 ### fvm [flutter version manager]
 # zinit ice from"gh-r" as"program" sbin'fvm/fvm' \
@@ -199,5 +198,10 @@ alias cls="clear"
 alias sourcezsh="source $HOME/.zshrc"
 alias zshrc="nvim $HOME/.zshrc"
 alias snvim="sudo -E nvim"
+
+### zoxide
+eval "$(zoxide init zsh)"
+### fzf
+source <(fzf --zsh)
 
 # zprof
