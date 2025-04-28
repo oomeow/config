@@ -1,15 +1,15 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "~/.config/fastfetch/icon.jpg",
+    "source": "~/.config/fastfetch/icon.gif",
     "type": "kitty-icat",
     "width": 35,
     "padding": {
-      "top": 1
-    }
+      "top": 2,
+    },
   },
   "display": {
-    "separator": " "
+    "separator": " ",
   },
   "modules": [
     "break",
@@ -19,76 +19,76 @@
       "color": {
         "user": "blue",
         "at": "blue",
-        "host": "blue"
-      }
+        "host": "blue",
+      },
     },
     "break",
     {
       "type": "os",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "kernel",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "packages",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "shell",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     "break",
     {
       "type": "terminal",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "wm",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "uptime",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     "break",
     {
       "type": "cpu",
       "key": "󰍛 ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "display",
       "key": "󰌢 ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "gpu",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     {
       "type": "memory",
       "key": " ",
-      "keyColor": "blue"
+      "keyColor": "blue",
     },
     "break",
     {
       "type": "custom",
-      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
+      "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m ",
     },
     // {
     //   "type": "colors",
     //   "symbol": "circle"
     // },
-    "break"
-  ]
+    "break",
+  ],
 }
