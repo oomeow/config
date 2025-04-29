@@ -94,7 +94,7 @@ zinit wait'0a' depth"1" lucid for \
 zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 
 ### paru
-zinit ice wait"0b" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
+zinit ice wait"0a" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
 zinit load Morganamilo/paru
 
 ### eza
@@ -104,6 +104,18 @@ zinit load eza-community/eza
 ### fzf-tab
 zinit ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zinit load Aloxaf/fzf-tab
+
+### rustup completion
+zinit ice wait"0a" if'[[ -n "$commands[rustup]" ]]' id-as"rustup-completion" lucid as"completion" atclone'rustup completions zsh > _rustup' pick'_rustup' nocompile
+zinit light zdharma-continuum/null
+
+### cargo completion
+zinit ice wait"0a" if'[[ -n "$commands[cargo]" ]]' id-as"cargo-completion" lucid as"completion" atclone'rustup completions zsh cargo > _cargo' pick'_cargo' nocompile
+zinit light zdharma-continuum/null
+
+### rsg completion
+zinit ice wait"0a" if'[[ -n "$commands[rsg]" ]]' id-as"rsg-completion" lucid as"completion" pick'zsh/_rsg' nocompile
+zinit light oomeow/RoseSong
 
 ###############################
 #   fzf-tab preview setting   #
@@ -161,10 +173,11 @@ zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 ### fnm [node version manager]
 # zinit ice from"gh-r" as"program" sbin'fnm' atload'eval "$(fnm env --use-on-cd)"'
 # zinit light @Schniz/fnm
-zinit ice id-as"fnm_completion" has"fnm" as"completion" \
-    atinit'eval "$(fnm env --use-on-cd --shell zsh)"' \
-    atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
-zinit light zdharma-continuum/null
+ 
+# zinit ice id-as"fnm_completion" has"fnm" as"completion" \
+#     atinit'eval "$(fnm env --use-on-cd --shell zsh)"' \
+#     atclone'fnm completions --shell zsh > _fnm' pick'_fnm' nocompile
+# zinit light zdharma-continuum/null
 
 ### fvm [flutter version manager]
 # zinit ice from"gh-r" as"program" sbin'fvm/fvm' \
@@ -198,10 +211,14 @@ alias cls="clear"
 alias sourcezsh="source $HOME/.zshrc"
 alias zshrc="nvim $HOME/.zshrc"
 alias snvim="sudo -E nvim"
+alias open="xdg-open"
+alias icat="kitten icat"
 
 ### zoxide
 eval "$(zoxide init zsh)"
 ### fzf
 source <(fzf --zsh)
+
+eval "$(vfox activate zsh)"
 
 # zprof
