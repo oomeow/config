@@ -214,14 +214,17 @@ alias snvim="sudo -E nvim"
 alias open="xdg-open"
 alias icat="kitten icat"
 
+### ========== source or eval ==========
 ### zoxide
 eval "$(zoxide init zsh)"
 ### fzf
 source <(fzf --zsh)
-
+### vfox
 eval "$(vfox activate zsh)"
+### starship
 eval "$(starship init zsh)"
 
+### ========== function ==========
 ### yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
