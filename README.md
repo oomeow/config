@@ -1,8 +1,7 @@
-# config
-
-my linux config
+## my linux config
 
 - zsh
+- starship
 - fastfetch
 - kitty
 - intellij-idea

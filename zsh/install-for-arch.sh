@@ -1,6 +1,3 @@
-yay -S --needed --noconfirm bat eza zoxide fzf fd ripgrep lazygit gdu bottom git-delta starship
-
-# use starship preset theme [gruvbox-rainbow]
-starship preset gruvbox-rainbow -o ~/.config/starship.toml
+yay -S --needed --noconfirm git starship bat eza zoxide fzf fd ripgrep lazygit gdu bottom git-delta
 
 cp ./.zshrc-arch ~/.zshrc
