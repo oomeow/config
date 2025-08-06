@@ -94,8 +94,8 @@ zinit wait'0a' depth"1" lucid for \
 zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 
 ### paru
-zinit ice wait"0a" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
-zinit load Morganamilo/paru
+# zinit ice wait"0a" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
+# zinit load Morganamilo/paru
 
 ### eza
 zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
