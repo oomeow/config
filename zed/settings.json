@@ -7,6 +7,15 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "show_edit_predictions": false,
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_text_threads": false
+  },
   "icon_theme": "Material Icon Theme",
   "vim_mode": true,
   "features": {
@@ -29,6 +38,14 @@
     "line_height": "standard",
     "scrollbar": {
       "show": "auto"
+    }
+  },
+  "minimap": {
+    "show": "always"
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true
     }
   }
 }
