@@ -1,3 +1,4 @@
+# Windows 上需要设置 STARSHIP_CONFIG 环境变量为此配置文件的地址
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """

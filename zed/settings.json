@@ -47,5 +47,12 @@
     "inline": {
       "enabled": true
     }
+  },
+  "windows": {
+    "terminal": {
+      "shell": {
+        "program": "D:\\nu\\bin\\nu.exe"
+      }
+    }
   }
 }
