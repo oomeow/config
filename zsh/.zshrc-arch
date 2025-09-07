@@ -97,6 +97,10 @@ zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 # zinit ice wait"0a" if'[[ -n "$commands[paru]" ]]' id-as"paru-completion" lucid as"completion" pick'/completions/zsh' nocompile
 # zinit load Morganamilo/paru
 
+### prek
+zinit ice wait"0a" if'[[ -n "$commands[prek]" ]]' id-as"prek-completion" lucid as"completion" atclone'COMPLETE=zsh prek completion > _prek' pick'_prek' nocompile
+zinit light zdharma-continuum/null
+
 ### eza
 zinit ice wait"0b" id-as"eza-completion" lucid as"completion" pick'/completions/zsh/_eza' nocompile
 zinit load eza-community/eza
