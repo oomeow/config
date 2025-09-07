@@ -17,6 +17,8 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+$env.config.buffer_editor = "code"
+
 # starship
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
@@ -31,3 +33,5 @@ alias z = cd
 
 # carapace-bin
 source ~/.cache/carapace/init.nu
+
+$env.config.show_banner = false
