@@ -7,6 +7,15 @@
 // from the command palette.
 [
   {
+    "context": "Picker > Editor",
+    "bindings": {
+      // 弹出框菜单选择下一项
+      "ctrl-j": "menu::SelectNext",
+      // 弹出框菜单选择上一项
+      "ctrl-k": "menu::SelectPrevious"
+    }
+  },
+  {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
       // put key-bindings here if you want them to work in normal & visual mode
