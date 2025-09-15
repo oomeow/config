@@ -22,9 +22,9 @@ set rnu
 " 设置返回 normal 模式时回到英文输入法
 set keep-english-in-normal
 " 系统剪贴板
-"set clipboard+=unnamedplus
-set clipboard=unnamed
-set clipboard^=ideaput
+set clipboard+=unnamedplus
+"set clipboard=unnamed
+"set clipboard^=ideaput
 
 " ================================================================================================
 " No Leader Keymaps
@@ -345,10 +345,10 @@ nmap <leader>su <Action>(Unsplit)
 "========= t ==========
 " 翻译
 let g:WhichKeyDesc_Translate = "<leader>t Translate"
-nmap <leader>t <Action>($EditorTranslateAction)
-vmap <leader>t <Action>($EditorTranslateAction)
+nmap <leader>t <Action>(Translation.EditorTranslateAction)
+vmap <leader>t <Action>(Translation.EditorTranslateAction)
 let g:WhichKeyDesc_Translate_Dialog = "<leader>T TranslateDialog"
-nmap <leader>T <Action>($ShowTranslationDialogAction)
+nmap <leader>T <Action>(Translation.ShowTranslationDialogAction)
 
 "========== u ==========
 "========== v ==========
