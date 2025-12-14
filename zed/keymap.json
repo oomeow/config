@@ -75,9 +75,15 @@
       // visual, visual line & visual block modes
     }
   },
+  // `j k` keymap
   {
-    // "context": "Editor && vim_mode == insert && !menu",
-    "context": "Editor && vim_mode == insert",
+    "context": "os == macos && (Workspace && keyboard_layout == ABC) > Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::SwitchToNormalMode"
+    }
+  },
+  {
+    "context": "os != macos && Editor && vim_mode == insert",
     "bindings": {
       "j k": "vim::SwitchToNormalMode"
     }
