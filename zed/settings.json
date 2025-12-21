@@ -7,52 +7,63 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "show_edit_predictions": false,
+  "agent": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "gemma3:latest",
+    },
+    "model_parameters": [],
+  },
+  "buffer_font_size": 14,
+  "buffer_font_family": "JetBrains Mono",
+  "colorize_brackets": true,
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
   "edit_predictions": {
     "mode": "subtle",
     "copilot": {
       "proxy": null,
-      "proxy_no_verify": null
+      "proxy_no_verify": null,
     },
-    "enabled_in_text_threads": false
+    "enabled_in_text_threads": false,
+  },
+  "features": {
+    "edit_prediction_provider": "zed",
   },
   "icon_theme": "Material Icon Theme",
-  "vim_mode": true,
-  "features": {
-    "edit_prediction_provider": "zed"
-  },
-  "ui_font_size": 16,
-  "buffer_font_size": 14,
-  "buffer_font_family": "JetBrains Mono",
-  "theme": {
-    "mode": "system",
-    "light": "Catppuccin Frappé - No Italics",
-    "dark": "One Dark"
-  },
   "inlay_hints": {
-    "enabled": true
+    "enabled": true,
+  },
+  "minimap": {
+    "show": "always",
+  },
+  "show_edit_predictions": true,
+  "tabs": {
+    "file_icons": true,
   },
   "terminal": {
     "font_size": 12,
     "font_family": "MesloLGS NF",
     "line_height": "standard",
     "scrollbar": {
-      "show": "auto"
-    }
+      "show": "auto",
+    },
   },
-  "minimap": {
-    "show": "always"
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Frappé - No Italics",
+    "dark": "One Dark",
   },
-  "diagnostics": {
-    "inline": {
-      "enabled": true
-    }
-  },
+  "ui_font_size": 16,
+  "vim_mode": true,
   "windows": {
     "terminal": {
       "shell": {
-        "program": "D:\\nu\\bin\\nu.exe"
-      }
-    }
-  }
+        "program": "D:\\nu\\bin\\nu.exe",
+      },
+    },
+  },
 }

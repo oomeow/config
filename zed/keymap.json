@@ -7,13 +7,32 @@
 // from the command palette.
 [
   {
+    "context": "os == macos && Workspace || Editor",
+    "bindings": {
+      "cmd-shift-g": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" },
+      ],
+    },
+  },
+  {
+    "context": "os != macos && Workspace || Editor",
+    "bindings": {
+      "ctrl-shift-g": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" },
+      ],
+    },
+  },
+
+  {
     "context": "Picker > Editor",
     "bindings": {
       // 弹出框菜单选择下一项
       "ctrl-j": "menu::SelectNext",
       // 弹出框菜单选择上一项
-      "ctrl-k": "menu::SelectPrevious"
-    }
+      "ctrl-k": "menu::SelectPrevious",
+    },
   },
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
@@ -24,8 +43,8 @@
       // 跳到行首
       "g h": "vim::FirstNonWhitespace",
       // ge 文档底部
-      "g e": "vim::EndOfDocument"
-    }
+      "g e": "vim::EndOfDocument",
+    },
   },
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
@@ -66,28 +85,30 @@
       // 快速修复 | 代码动作
       "space .": "editor::ToggleCodeActions",
       // Redo
-      "U": "vim::Redo"
-    }
+      "U": "vim::Redo",
+    },
   },
   {
     "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
       // visual, visual line & visual block modes
-    }
+    },
   },
+
   // `j k` keymap
   {
     "context": "os == macos && (Workspace && keyboard_layout == ABC) > Editor && vim_mode == insert",
     "bindings": {
-      "j k": "vim::SwitchToNormalMode"
-    }
+      "j k": "vim::SwitchToNormalMode",
+    },
   },
   {
     "context": "os != macos && Editor && vim_mode == insert",
     "bindings": {
-      "j k": "vim::SwitchToNormalMode"
-    }
+      "j k": "vim::SwitchToNormalMode",
+    },
   },
+
   {
     // netrw compatibility
     "context": "ProjectPanel && not_editing",
@@ -109,42 +130,42 @@
       // 粘贴
       "p": "project_panel::Paste",
       // 在文件管理器中显示
-      "O": "project_panel::RevealInFileManager"
-    }
+      "O": "project_panel::RevealInFileManager",
+    },
   },
   {
     "context": "Editor && (showing_code_actions || showing_completions)",
     "bindings": {
       // 使用 tab 键切换代码建议
       "shift-tab": "editor::ContextMenuPrevious",
-      "tab": "editor::ContextMenuNext"
-    }
+      "tab": "editor::ContextMenuNext",
+    },
   },
   {
     "context": "Picker > Editor",
     "bindings": {
       "shift-tab": "menu::SelectPrevious",
-      "tab": "menu::SelectNext"
-    }
+      "tab": "menu::SelectNext",
+    },
   },
   {
     "context": "Workspace",
     "bindings": {
       "f7": "terminal_panel::ToggleFocus",
-      "f9": "workspace::ToggleBottomDock"
-    }
+      "f9": "workspace::ToggleBottomDock",
+    },
   },
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-n": "workspace::NewTerminal"
-    }
+      "ctrl-n": "workspace::NewTerminal",
+    },
   },
   {
     "context": "ConversationEditor > Editor",
     "bindings": {
       // 给 AI 助手发送消息
-      "alt-enter": "assistant::Assist"
-    }
-  }
+      "alt-enter": "assistant::Assist",
+    },
+  },
 ]
