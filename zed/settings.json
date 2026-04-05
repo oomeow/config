@@ -7,13 +7,6 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "agent": {
-    "default_model": {
-      "provider": "ollama",
-      "model": "gemma3:latest",
-    },
-    "model_parameters": [],
-  },
   "buffer_font_size": 14,
   "buffer_font_family": "JetBrains Mono",
   "colorize_brackets": true,
@@ -23,15 +16,13 @@
     },
   },
   "edit_predictions": {
+    "provider": "zed",
     "mode": "subtle",
     "copilot": {
       "proxy": null,
       "proxy_no_verify": null,
     },
     "enabled_in_text_threads": false,
-  },
-  "features": {
-    "edit_prediction_provider": "zed",
   },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
