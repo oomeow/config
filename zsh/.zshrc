@@ -89,29 +89,29 @@ zinit wait'0a' depth"1" lucid for \
 zinit wait"0a" lucid for MichaelAquilina/zsh-you-should-use
 
 ### rustup completion
-zinit ice wait"0a" if'[[ -n "$commands[rustup]" ]]' id-as"rustup-completion" lucid as"completion" atclone'rustup completions zsh > _rustup' pick'_rustup' nocompile
+zinit ice wait"0a" has'rustup' id-as"rustup-completion" lucid as"completion" atclone'rustup completions zsh > _rustup' pick'_rustup' nocompile
 zinit light zdharma-continuum/null
 
 ### cargo completion
-zinit ice wait"0a" if'[[ -n "$commands[cargo]" ]]' id-as"cargo-completion" lucid as"completion" atclone'rustup completions zsh cargo > _cargo' pick'_cargo' nocompile
+zinit ice wait"0a" has'cargo' id-as"cargo-completion" lucid as"completion" atclone'rustup completions zsh cargo > _cargo' pick'_cargo' nocompile
 zinit light zdharma-continuum/null
 
 ### watchexec completion
-zinit ice wait"0a" if'[[ -n "$commands[watchexec]" ]]' id-as"watchexec-completion" lucid as"completion" atclone'watchexec --completions zsh > _watchexec' pick'_watchexec' nocompile
+zinit ice wait"0a" has'watchexec' id-as"watchexec-completion" lucid as"completion" atclone'watchexec --completions zsh > _watchexec' pick'_watchexec' nocompile
 zinit light zdharma-continuum/null
 
 ### ollama completion
-zinit ice wait"0a" if'[[ -n "$commands[ollama]" ]]' id-as"ollama-completion" lucid as"completion" pick'_ollama' nocompile
+zinit ice wait"0a" has'ollama' id-as"ollama-completion" lucid as"completion" pick'_ollama' nocompile
 zinit light ocodo/ollama_zsh_completion
 
 ### ai-commit completion
-zinit ice wait"0a" if'[[ -n "$commands[ai-commit]" ]]' id-as"ai-commit-completion" lucid as"completion" pick'completions/zsh/_ai-commit' nocompile
+zinit ice wait"0a" has'ai-commit' id-as"ai-commit-completion" lucid as"completion" pick'completions/zsh/_ai-commit' nocompile
 zinit light oomeow/ai-commit
 
 source <(fzf --zsh)
 
 ### fzf-tab
-zinit ice wait"0a" lucid depth"1" atload"zicompinit; zicdreplay" blockf
+zinit ice wait"0a" has'fzf' lucid depth"1" atload"zicompinit; zicdreplay" blockf
 zinit load Aloxaf/fzf-tab
 
 ###############################
@@ -175,6 +175,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
 ### go
 # export PATH=/usr/local/go/bin:$PATH
+export CLASH_VERGE_SELF_SERVICE_PSK="dev"
 
 
 ### ========== alias ==========
@@ -195,4 +196,9 @@ compinit
 # End of Docker CLI completions
  
 # zprof
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/oomeow/.lmstudio/bin"
+# End of LM Studio CLI section
 
