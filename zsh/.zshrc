@@ -6,6 +6,8 @@
 # ---------------------------------------------------------------
 # zmodload zsh/zprof
 
+bindkey '^ ' forward-char
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -17,14 +19,14 @@ fi
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" &&
+        print -P "%F{33} %F{34}Installation successful.%f%b" ||
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+((${+_comps})) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
 ### zsh-defer
@@ -42,7 +44,7 @@ setopt promptsubst
 setopt no_nomatch
 
 ### powerlevel10k theme
-zinit ice depth"1"
+# zinit ice depth"1"
 # zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -72,10 +74,10 @@ zinit wait'0a' lucid for \
 ### completion enhancements
 zinit wait"1a" lucid depth"1" for \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    blockf \
     zdharma-continuum/fast-syntax-highlighting \
-    atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
+    blockf \
     zsh-users/zsh-completions \
+    atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
     zsh-users/zsh-history-substring-search
 
 ### git extras
@@ -105,8 +107,12 @@ zinit ice wait"0a" has'ollama' id-as"ollama-completion" lucid as"completion" pic
 zinit light ocodo/ollama_zsh_completion
 
 ### ai-commit completion
-zinit ice wait"0a" has'ai-commit' id-as"ai-commit-completion" lucid as"completion" pick'completions/zsh/_ai-commit' nocompile
-zinit light oomeow/ai-commit
+zinit ice wait"0a" has'ai-commit' id-as"ai-commit-completion" lucid as"completion" atclone'ai-commit completion zsh > _ai-commit' pick'_ai-commit' nocompile
+zinit light zdharma-continuum/null
+
+### pnpm completion
+zinit ice wait"0a" has'pnpm' id-as"pnpm-completion" lucid as"completion" pick'completions/zsh-completions/_pnpm' nocompile
+zinit light oomeow/config
 
 source <(fzf --zsh)
 
@@ -137,8 +143,8 @@ zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl
 # env variable
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 # git
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'|
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta' |
+    zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
     'case "$group" in
@@ -173,10 +179,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # export ANDROID_HOME=$HOME/android/sdk
 # export ANDROID_AVD_HOME=$HOME/android/avd
 # export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/emulator:${ANDROID_HOME}/platform-tools:$PATH
-### go
-# export PATH=/usr/local/go/bin:$PATH
-export CLASH_VERGE_SELF_SERVICE_PSK="dev"
-
 
 ### ========== alias ==========
 alias cls="clear"
@@ -189,16 +191,4 @@ alias ll="eza -l --icons=always"
 # alias snivm="sudo -E nvim"
 # alias sneovide="sudo -E neovide"
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/oomeow/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
- 
 # zprof
-
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/oomeow/.lmstudio/bin"
-# End of LM Studio CLI section
-
