@@ -161,11 +161,4 @@
       "ctrl-n": "workspace::NewTerminal",
     },
   },
-  {
-    "context": "ConversationEditor > Editor",
-    "bindings": {
-      // 给 AI 助手发送消息
-      "alt-enter": "assistant::Assist",
-    },
-  },
 ]
