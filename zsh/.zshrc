@@ -5,8 +5,8 @@
 #       atload'zprof | head -n 20; zmodload -u zsh/zprof'
 # ---------------------------------------------------------------
 # zmodload zsh/zprof
-
-bindkey '^ ' forward-char
+ 
+# bindkey '^ ' forward-char
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -77,8 +77,11 @@ zinit wait"1a" lucid depth"1" for \
     zdharma-continuum/fast-syntax-highlighting \
     blockf \
     zsh-users/zsh-completions \
-    atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
+    atload"!_zsh_autosuggest_start; bindkey '^ ' autosuggest-accept" zsh-users/zsh-autosuggestions \
     zsh-users/zsh-history-substring-search
+
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
 
 ### git extras
 zinit wait'0a' depth"1" lucid for \
