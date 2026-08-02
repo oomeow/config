@@ -68,8 +68,6 @@ zinit wait'0a' lucid for \
     OMZP::fancy-ctrl-z \
     OMZP::sudo \
     as"completion" OMZP::docker/completions/_docker
-    # svn atload'export SHELLPROXY_URL="http://127.0.0.1:7897";
-    # export SHELLPROXY_NO_PROXY="localhost,127.0.0.1"' OMZP::shell-proxy
 
 ### completion enhancements
 zinit wait"1a" lucid depth"1" for \
@@ -116,6 +114,10 @@ zinit light zdharma-continuum/null
 ### pnpm completion
 zinit ice wait"0a" has'pnpm' id-as"pnpm-completion" lucid as"completion" pick'completions/zsh-completions/_pnpm' nocompile
 zinit light oomeow/config
+
+### just completion
+zinit ice wait"0a" has'just' id-as"just-completion" lucid as"completion" atclone'just --completions zsh > _just' pick'_just' nocompile
+zinit light zdharma-continuum/null
 
 source <(fzf --zsh)
 
@@ -193,5 +195,13 @@ alias ls="eza --icons=always"
 alias ll="eza -l --icons=always"
 # alias snivm="sudo -E nvim"
 # alias sneovide="sudo -E neovide"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
 
 # zprof

@@ -7,6 +7,12 @@
 // from the command palette.
 [
   {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "g w": "vim::HelixJumpToWord",
+    },
+  },
+  {
     "context": "os == macos && Workspace || Editor",
     "bindings": {
       "cmd-shift-g": [
@@ -42,8 +48,12 @@
       "g l": "vim::EndOfLine",
       // 跳到行首
       "g h": "vim::FirstNonWhitespace",
-      // ge 文档底部
+      // 文档底部
       "g e": "vim::EndOfDocument",
+      // 多光标，匹配下一个
+      "g n": "vim::SelectNext",
+      // 多光标，匹配上一个
+      "g shift-n": "vim::SelectPrevious",
     },
   },
   {
