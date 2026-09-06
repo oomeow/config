@@ -96,6 +96,8 @@
       "space .": "editor::ToggleCodeActions",
       // Redo
       "U": "vim::Redo",
+      // git 恢复修改文件
+      "space g r": "git::RestoreFile",
     },
   },
   {
